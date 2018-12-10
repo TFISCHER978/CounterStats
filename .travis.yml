@@ -1,8 +1,12 @@
 language: node_js
 node_js:
-  - "9"
-
+- '9'
 script:
-  - cd nodejs-minimal-boilerplate
-  - yarn
-  - yarn test
+- cd nodejs-minimal-boilerplate
+- yarn
+- yarn test
+deploy:
+  provider: heroku
+  app: counterstat
+  api_key:
+    secure: Z+bz7bvkEazA6Aq6NFwBam0DDsSzXEeEsPWgbyagVJ2Ot1UvdchdXOp8ja/eP39DJcQ8sXYYCnDkryWrNUO3cuGqoiuYEpu3c8Yc41Hhx51JyM/l0Pe+tuoOukNWHwSQPaiM8BY34jJyKrNZ0EEXbKhtwVkRde+Nl+/ESrR9XZnvAyPv3TiBDg2xnVbt2jWC08K4fLmmWMen73e5Ctr6uf2XK8tRxodKfPo22tR4t4j1X510TDANWSZSQJV1bQI2mVXOZ7qKxLeTyPjD1aBPv7lEoxYivQ/xF3DIDkZ9GR2/VvNXAZ8R2ZNsWLMkLjvthjYxwWSB1zL9L+BbwNhJA53O0rpmDtfArLBRadevbsqAUjod2Q3xlIQsOaEUotCCRXHrJTTToTEILlnJq+BsOd7Yxw7wHm61v0UUuysDfmyjU0l9NWIxGD/Py2gH2PyC5fqnohp3p9KtAvZSuLyIIjUsftHzgupM2njBf3KCyUtPtiuvv207pcVl+sl47v29ew2zdJGVsWV3ek8q8J8veA22rt2jXMWlZikjz+H6agSNUYN5zULF2PYMseaooZ5UBVRfa/8jOCj4Xy6ooFbsfl+X4JHxsiqEGf/rRJAFgdlORfDQBw3kXA7OF7Fcqe6DBfmXGbsEi1CE70OegHhKByVLK2lnQ/55pA0VkOL2VU8=
