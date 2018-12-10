@@ -9,7 +9,7 @@ app.use("/static/", express.static(__dirname + "/../static/"));
 // Json parsing
 app.use(bodyParser.json());
 
-app.get("/index", function(req, res) {
+app.get("/", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/index.html`);
   const token = req.headers.authorization;
   const origin = req.headers.origin;
