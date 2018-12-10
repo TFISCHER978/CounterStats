@@ -1,5 +1,10 @@
 /* Sticky footer styles
 -------------------------------------------------- */
+@font-face{     /* ToDo : implémenter le font */
+    font-family: "Counter Strike Font";
+    src: url(C:\Users\dl714393\Desktop\CounterStats\CounterStats\nodejs-minimal-boilerplate\static\cs_regular.ttf);
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -20,6 +25,13 @@ body {
 /* Custom page CSS
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
+body{
+    background-image: url(../static/ressource/fond.jpeg);
+}
+
+nav{
+    background-color: rgb(29, 29, 29, .5);
+}
 
 body > .container {
   padding: 60px 15px 0;
@@ -53,6 +65,12 @@ h1{
 
 .blog{
     color: darkgrey;
-    background-color: rgb(29, 29, 29);
+    background-color: rgb(29, 29, 29, .5);
     padding: 5%;
+    margin-left: 1%;
+}
+
+
+.blog p{
+    margin: 10px;
 }
