@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Site gratuit permettant aux utilisateurs de voir l'actualité de counter strike dans son ensemble. Permet aussi à des équipes d'organiser des rencontres amicales et des entraînements">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="author" content="La Tartiflex">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="language" content="FR">
+    
+    <title>Counter Stats</title>
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="bg-secondary">
+    
+   <script type="text/javascript">
+        $(document).ready(
+            () => $("#submit").click(function () {
+                var data = {
+                    email: $("#emailAddress").val(),
+                    option: $("#selectOption").val()
+                }
+
+                console.log(data);
+                fetch("/post-example", {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8",
+                    },
+                    body: JSON.stringify(data), // body data type must match "Content-Type" header
+                })
+                    .then(response => response.json())
+                    .then(
+                        json => {
+                            $("#result")
+                                .html("<label>email</label><br>" +
+                                    `${json.email}` +
+                                    "<br><label>choice</label><br>" +
+                                    `<p>${json.option}</p>`
+                                )
+                        }
+                    ); // parses response to JSON
+            })
+
+        )
+    </script>
+    
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand" href="/index">Counter Stats</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="justify-content-center collapse navbar-collapse text-center" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Begin page content -->
+    <main role="main" class="container">
+        <form>
+            <div class="form-group">
+                <label for="emailAddress">Login </label>
+                <input type="email" class="form-control" id="emailAddress" placeholder="email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="password">
+            </div>
+            <button id="submit" type="button" class="btn btn-success">Login</button>
+        </form>
+        <br>
+        <a href="#" class="text-warning">Créer un compte</a>
+        <div id="result"></div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
+    
+     
+    
+</body>
+
+</html>
