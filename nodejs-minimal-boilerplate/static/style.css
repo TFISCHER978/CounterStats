@@ -1,8 +1,8 @@
 /* Sticky footer styles
 -------------------------------------------------- */
 @font-face{     /* ToDo : implémenter le font */
-    font-family: "Counter Strike Font";
-    src: url(C:\Users\dl714393\Desktop\CounterStats\CounterStats\nodejs-minimal-boilerplate\static\cs_regular.ttf);
+    font-family: csFont;
+    src: url(cs_regular.ttf);
 }
 
 html {
@@ -12,6 +12,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-family: csFont, italic;
 }
 .footer {
   position: absolute;
@@ -73,4 +74,5 @@ h1{
 
 .blog p{
     margin: 10px;
+	font-size: 20px;
 }
