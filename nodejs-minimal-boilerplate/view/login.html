@@ -2,8 +2,8 @@
 <html lang="fr">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Site gratuit permettant aux utilisateurs de voir l'actualitÃ© de counter strike dans son ensemble. Permet aussi Ã  des Ã©quipes d'organiser des rencontres amicales et des entraÃ®nements">
+	<meta charset="utf-8">
+    <meta name="description" content="Site gratuit permettant aux utilisateurs de voir l'actualité de counter strike dans son ensemble. Permet aussi à des équipes d'organiser des rencontres amicales et des entraînements">
     <meta name="keywords" content="HTML,CSS,JavaScript">
     <meta name="author" content="La Tartiflex">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,18 +11,20 @@
     
     <title>Counter Stats</title>
     <!-- Jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Boostrap -->
+    
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	<!-- Boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/static/style.css">
+   <link rel="stylesheet" href="../static/style.css">
 </head>
 
 <body class="bg-secondary">
+	<script src="../scripts/identification.js"></script> <!-- clement -->
     
    <script type="text/javascript">
         $(document).ready(
@@ -31,7 +33,6 @@
                     email: $("#emailAddress").val(),
                     option: $("#selectOption").val()
                 }
-
                 console.log(data);
                 fetch("/post-example", {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -52,7 +53,6 @@
                         }
                     ); // parses response to JSON
             })
-
         )
     </script>
     
@@ -78,15 +78,21 @@
                 <input type="email" class="form-control" id="emailAddress" placeholder="email">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="password">
+                <input type="password" class="form-control" id="motdepasse" placeholder="password">
             </div>
-            <button id="submit" type="button" class="btn btn-success">Login</button>
+			<!-- clement -->
+			<!---------------->
+            <button id="submit" type="button" class="btn btn-success" onclick="recuperer_info_login()">Login</button>
+			<button id="testttt" type="button" class="btn btn-success" onclick="affichelogin()">test</button>
+			<p id="res"> eeeeeeeeeeeeeee </p>
+			<!-- clement -->
+			<!---------------->
+			
         </form>
         <br>
-        <a href="#" class="text-warning">CrÃ©er un compte</a>
+        <a href="#" class="text-warning">Créer un compte</a>
         <div id="result"></div>
     </main>
-
     <footer class="footer">
         <div class="container">
             <span class="text-muted">Place sticky footer content here.</span>
@@ -94,7 +100,7 @@
     </footer>
     
      
-    
+
 </body>
 
 </html>
