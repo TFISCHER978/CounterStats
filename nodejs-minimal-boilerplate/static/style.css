@@ -17,7 +17,6 @@ body {
   line-height: 60px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
-
 /* Custom page CSS
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -33,4 +32,27 @@ body > .container {
 
 code {
   font-size: 80%;
+}
+
+.logoCounterStats{
+    display: block;
+    margin: 0 auto;
+}
+
+#logoCounterStats img{
+    text-align: center;
+}
+
+#login{
+    float: right;
+}
+
+h1{
+    margin-top: 5%;
+}
+
+.blog{
+    color: darkgrey;
+    background-color: rgb(29, 29, 29);
+    padding: 5%;
 }
