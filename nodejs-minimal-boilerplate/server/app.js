@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
+const databaseUrl = process.env.DATABASE_URL;  //Use this shit to acces DataBase
 
 app.use("/static/", express.static(__dirname + "/../static/"));
 
