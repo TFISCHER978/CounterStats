@@ -27,7 +27,8 @@ body {
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 body{
-    background-image: url(../static/ressource/fond.jpeg);
+    background: url(../static/ressource/font.jpg) no-repeat fixed center;
+    background-size: cover;
 }
 
 nav{
@@ -71,8 +72,23 @@ h1{
     margin-left: 1%;
 }
 
+.blog img{
+    height: 50%;
+    width: 50%;
+}
+
 
 .blog p{
     margin: 10px;
 	font-size: 20px;
+}
+
+.blog h2{
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.blog footer{
+    text-align: right;
+    margin-top: 10%;
 }
