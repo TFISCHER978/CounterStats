@@ -26,6 +26,15 @@ app.get("/login", function(req, res) {
   res.send(content.toString());
 });
 
+app.get("/create_login", function(req, res) {
+  const content = fs.readFileSync(`${__dirname}/../view/CreateLogin.html`);
+  const token = req.headers.authorization;
+  const origin = req.headers.origin;
+  res.set("Content-Type", "text/html");
+  res.send(content.toString());
+});
+
+
 app.post("/post-example", (req, res) => {
   console.log(req.body);
   res.set("Content-Type", "application/json");
