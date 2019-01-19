@@ -10,9 +10,16 @@
     <meta name="language" content="FR">
     
     <title>Counter Stats</title>
-    <!-- Jquery -->
-    
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
+    <!-- Mock  -->
+    <script type="text/javascript" src="../scripts/userMock.js"></script>
+
+    <!-- Jquery -->  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
+    <!-- Connect to base-->
+    <!-- <script src="../server/base.js"></script> -->
+
 	<!-- Boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
@@ -20,12 +27,12 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 
 <body class="bg-secondary">
-	<script src="../scripts/identification.js"></script> <!-- clement -->
-    
+	<script src="../scripts/identification.js"></script>
+    <!-- 
    <script type="text/javascript">
         $(document).ready(
             () => $("#submit").click(function () {
@@ -54,15 +61,11 @@
                     ); // parses response to JSON
             })
         )
-    </script>
+    </script> -->
     
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-<<<<<<< HEAD
-            <a class="navbar-brand" href="index.html">CounterStats</a>
-=======
-            <a class="navbar-brand" href="/">Counter Stats</a>
->>>>>>> 678c6614934ddeac33280c66fe5060851a8de26c
+            <a class="navbar-brand" href="/">CounterStats</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -79,18 +82,14 @@
         <form>
             <div class="form-group">
                 <label for="emailAddress">Login </label>
-                <input type="email" class="form-control" id="emailAddress" placeholder="email">
+                <input type="email" class="form-control" id="email" placeholder="email">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="motdepasse" placeholder="password">
+                <input type="password" class="form-control" id="password" placeholder="password">
             </div>
-			<!-- clement -->
-			<!---------------->
-            <button id="submit" type="button" class="btn btn-success" onclick="recuperer_info_login()">Login</button>
-			<!--<button id="testttt" type="button" class="btn btn-success" onclick="affichelogin()">test</button>
-			<p id="res"> eeeeeeeeeeeeeee </p>
-			<!-- clement -->
-			<!---------------->
+
+            <button id="submit" type="button" class="btn btn-success" onclick="login()">Login</button>
+
 			
         </form>
         <br>

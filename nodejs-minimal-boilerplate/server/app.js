@@ -6,6 +6,9 @@ const app = express();
 const databaseUrl = process.env.DATABASE_URL;  //Use this shit to acces DataBase
 
 app.use("/static/", express.static(__dirname + "/../static/"));
+app.use("/scripts/", express.static(__dirname + "/../scripts/"));
+app.use("/mock/", express.static(__dirname + "/../mock/"));
+app.use("/server/", express.static(__dirname + "/../server/"));
 
 // Json parsing
 app.use(bodyParser.json());
@@ -18,6 +21,7 @@ app.get("/", function(req, res) {
   res.send(content.toString());
 });
 
+
 app.get("/login", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/login.html`);
   const token = req.headers.authorization;
@@ -25,6 +29,7 @@ app.get("/login", function(req, res) {
   res.set("Content-Type", "text/html");
   res.send(content.toString());
 });
+
 
 app.get("/create_login", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/CreateLogin.html`);
