@@ -13,6 +13,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: csFont, italic;
+  background: url(ressource/font_test.jpg) no-repeat fixed center;
 }
 .footer {
   position: absolute;
@@ -26,10 +27,6 @@ body {
 /* Custom page CSS
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-body{
-    background: url(../static/ressource/font_test.jpg) no-repeat fixed center;
-    background-size: cover;
-}
 
 nav{
     background-color: rgb(29, 29, 29, .5);
@@ -91,4 +88,12 @@ h1{
 .blog footer{
     text-align: right;
     margin-top: 10%;
+}
+
+.Video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
 }
