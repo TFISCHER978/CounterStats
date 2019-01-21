@@ -1,11 +1,13 @@
 import fs from "fs";
 import express from "express";
 import bodyParser from "body-parser";
+import bcrypt from "bcryptjs";
+require('dotenv').config();
 
 const app = express();
 const databaseUrl = process.env.DATABASE_URL;  //Use this shit to acces DataBase
-
 app.use("/static/", express.static(__dirname + "/../static/"));
+app.use("/scripts/", express.static(__dirname + "/../scripts/"));
 
 // Json parsing
 app.use(bodyParser.json());
@@ -18,13 +20,45 @@ app.get("/", function(req, res) {
   res.send(content.toString());
 });
 
+
 app.get("/login", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/login.html`);
   const token = req.headers.authorization;
   const origin = req.headers.origin;
   res.set("Content-Type", "text/html");
   res.send(content.toString());
+  
 });
+
+app.post("/login", function(req, res) {
+  const { Client } = require('pg')
+  const config = {
+    connectionString: databaseUrl
+  };
+  const client = new Client(config);
+  
+  client.connect()
+  const query = {
+    text: 'SELECT * FROM public.user WHERE pseudo=$1',
+    values: [req.body.pseudo],
+  };
+  client.query(query, (err, p_res) => {
+    if(err) console.log("Error", err);
+    else {
+      var password = p_res.rows[0].password;
+      var salt = password.split("\\.")[0];
+
+      if(!bcrypt.hashSync(req.body.password, salt)===password){
+        req.body.html = null;
+      } else {
+        req.body.html = '<p>Bienvenue ' + req.body.pseudo + '</p>';
+      }
+      res.set("Content-Type", "text/html");
+      res.send('<p>Bienvenue ' + req.body.pseudo + '</p>');
+    }
+  });
+});
+
 
 app.get("/create_login", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/CreateLogin.html`);
