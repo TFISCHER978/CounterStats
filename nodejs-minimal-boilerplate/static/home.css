@@ -27,7 +27,7 @@ body {
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 body{
-    background: url(../static/ressource/font.jpg) no-repeat fixed center;
+    background: url(../static/ressource/font_test.jpg) no-repeat fixed center;
     background-size: cover;
 }
 
@@ -67,7 +67,7 @@ h1{
 
 .blog{
     color: darkgrey;
-    background-color: rgb(29, 29, 29, .5);
+    background-color: rgb(29, 29, 29, .8);
     padding: 5%;
     margin-left: 1%;
 }
