@@ -48,11 +48,12 @@ app.post("/login", function(req, res) {
       var password = p_res.rows[0].password;
       var salt = password.split("\\.")[0];
 
-      if(!bcrypt.hashSync(req.body.password, salt)===password) {
-        res.status(401);
-      } else {
-        res.set("Content-Type", "text/html");
+      if(bcrypt.hashSync(req.body.password, salt)===password) {  // if password OK
+        res.status(200);
         res.redirect("/");
+      } else {                          // if password KO
+        res.status(401);
+        res.redirect("/login")
       }
     }
   });

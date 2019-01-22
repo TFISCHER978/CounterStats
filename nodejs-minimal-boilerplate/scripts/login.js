@@ -13,8 +13,14 @@ $(document).ready(function() {
         })
             .then(response => {
                 console.log(response);
+                if (response.status === 200) window.location.href = response.url;
+
+                if (response.status === 401) {
+                    window.location.href = response.url;
+                    alert("Unauthorized\nIncorrect username or password.");
+                }                
             })
-            }); // parses response to JSON
+        });
 
     $('#login').on('keyup', '.form-control', function(evt){
         if(evt.keyCode === 13) $('#login-submit').trigger('click');
