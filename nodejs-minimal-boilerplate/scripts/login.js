@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#login-submit').click( function () {
         var data = {
-            pseudo: $("#username").val(),
+            email: $("#email").val(),
             password: $("#password").val()
         };
         fetch("/login", {
@@ -11,12 +11,10 @@ $(document).ready(function() {
             },
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
-            .then(response => response.json())
-            .then(json => {
-                if(json.html == null) return;
-                $("#login").html(json.html)
+            .then(response => {
+                console.log(response);
+            })
             }); // parses response to JSON
-    });
 
     $('#login').on('keyup', '.form-control', function(evt){
         if(evt.keyCode === 13) $('#login-submit').trigger('click');

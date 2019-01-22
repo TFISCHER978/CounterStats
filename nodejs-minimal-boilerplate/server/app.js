@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 require('dotenv').config();
 
 const app = express();
-const databaseUrl = process.env.DATABASE_URL;  //Use this shit to acces DataBase
+const databaseUrl = process.env.DATABASE_URL; 
 app.use("/static/", express.static(__dirname + "/../static/"));
 app.use("/scripts/", express.static(__dirname + "/../scripts/"));
 
@@ -39,8 +39,8 @@ app.post("/login", function(req, res) {
   
   client.connect()
   const query = {
-    text: 'SELECT * FROM public.user WHERE pseudo=$1',
-    values: [req.body.pseudo],
+    text: 'SELECT * FROM public.user WHERE email=$1',
+    values: [req.body.email],
   };
   client.query(query, (err, p_res) => {
     if(err) console.log("Error", err);
@@ -48,13 +48,12 @@ app.post("/login", function(req, res) {
       var password = p_res.rows[0].password;
       var salt = password.split("\\.")[0];
 
-      if(!bcrypt.hashSync(req.body.password, salt)===password){
-        req.body.html = null;
+      if(!bcrypt.hashSync(req.body.password, salt)===password) {
+        res.status(401);
       } else {
-        req.body.html = '<p>Bienvenue ' + req.body.pseudo + '</p>';
+        res.set("Content-Type", "text/html");
+        res.redirect("/");
       }
-      res.set("Content-Type", "text/html");
-      res.send('<p>Bienvenue ' + req.body.pseudo + '</p>');
     }
   });
 });
