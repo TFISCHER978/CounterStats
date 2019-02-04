@@ -53,7 +53,7 @@ app.post("/login", function(req, res) {
         res.redirect("/");
       } else {                          // if password KO
         res.status(401);
-        res.redirect("/login")
+        res.send();
       }
     }
   });

@@ -12,12 +12,10 @@ $(document).ready(function() {
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
             .then(response => {
-                console.log(response);
                 if (response.status === 200) window.location.href = response.url;
 
                 if (response.status === 401) {
-                    window.location.href = response.url;
-                    alert("Unauthorized\nIncorrect username or password.");
+                    
                 }                
             })
         });
