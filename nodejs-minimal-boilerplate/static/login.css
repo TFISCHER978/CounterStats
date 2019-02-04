@@ -63,3 +63,11 @@ video {
   left: 0; 
   z-index: -2;
 }
+
+
+/* ERROR CSS */
+
+#error{
+  visibility: hidden;
+  
+}
