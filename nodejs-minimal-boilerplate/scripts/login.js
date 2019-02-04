@@ -15,7 +15,7 @@ $(document).ready(function() {
                 if (response.status === 200) window.location.href = response.url;
 
                 if (response.status === 401) {
-                    
+                    $("#error").css("visibility","visible");
                 }                
             })
         });
