@@ -77,3 +77,11 @@ form{
 input{
     font-size: 30px;
 }
+
+
+/* ERROR CSS */
+
+#error{
+  visibility: hidden;
+  
+}

@@ -12,7 +12,7 @@
     <title>Counter Stats</title>
 
     <!-- Mock  -->
-    <script type="text/javascript" src="../scripts/userMock.js"></script>
+    <!-- <script type="text/javascript" src="../scripts/userMock.js"></script> -->
 
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
@@ -31,6 +31,8 @@
 </head>
 
 <body>
+
+    <script src="../scripts/createAccount.js"></script>
 
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -58,13 +60,14 @@
                 <input type="email" class="form-control" id="email" placeholder="email">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="password" placeholder="password">
+                <input type="password" class="form-control " id="password" placeholder="password">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="confirm" placeholder="confirm password">
+                <input type="password" class="form-control " id="confirm_password" placeholder="confirm password">
+                <span id='message'></span>
             </div>
 
-            <button id="submit" type="button" class="btn btn-success" onclick="signup()">Sign up</button>
+            <button id="submit" type="button" class="btn btn-success">Sign up</button>
 
 			
         </form>
