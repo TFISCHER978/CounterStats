@@ -30,18 +30,9 @@ $(document).ready(function() {
         if ($('#password').val() == $('#confirm_password').val()) {
           $('#message').html('Matching').css('color', 'green');
 
-            //CHANGE THIS
-
-          $('#password').removeClass('is-invalid');
-          $('#confirm_password').removeClass('is-invalid');
-          $('#password').addClass('is-valid');
-          $('#password_password').addClass('is-valid');
-
-            //CHANGE THIS
         } else 
           $('#message').html('Not Matching').css('color', 'red');
-          $('#password').addClass('is-invalid');
-          $('#confirm_password').addClass('is-invalid');
+
       });
 
 });
