@@ -16,7 +16,12 @@ $(document).ready(function() {
 
                 if (response.status === 401) {
                     $("#error").css("visibility","visible");
-                }                
+                    $("#pError").text("Incorrect username or password.");
+                }
+                if (response.status === 402) {
+                    $("#error").css("visibility","visible");
+                    $("#pError").text("Email not known.");
+                }     
             })
         });
 

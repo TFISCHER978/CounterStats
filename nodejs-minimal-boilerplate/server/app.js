@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import bcrypt from "bcryptjs";
 require('dotenv').config();
 const uuidv1 = require('uuid/v1');
+var validator = require("email-validator");
 
 const app = express();
 const databaseUrl = process.env.DATABASE_URL; 
@@ -46,14 +47,19 @@ app.post("/login", function(req, res) {
   client.query(query, (err, p_res) => {
     if(err) console.log("Error", err);
     else {
-      var password = p_res.rows[0].password;
-      var salt = password.split("\\.")[0];
+      if (p_res.rowCount == 1) {
+        var password = p_res.rows[0].password;
+        var salt = password.split("\\.")[0];
 
-      if(bcrypt.hashSync(req.body.password, salt)===password) {  // if password OK
-        res.status(200);
-        res.redirect("/");
-      } else {                          // if password KO
-        res.status(401);
+        if(bcrypt.hashSync(req.body.password, salt)===password) {  // if password OK
+          res.status(200);
+          res.redirect("/");
+        } else {                          // if password KO
+          res.status(401);
+          res.send();
+        }
+      } else {
+        res.status(402);
         res.send();
       }
     }
@@ -76,25 +82,40 @@ app.post("/create_account",function(req, res) {
     connectionString: databaseUrl
   };
   const client = new Client(config);
+  const saltRounds = 10;
   
   client.connect()
+
+  //Check mail not in base
+
   const query = {
-    text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null, null)',
-    values: [req.body.email, uuidv1(), req.body.password, req.body.pseudo],
+    text: 'SELECT * FROM public.user WHERE email=$1',
+    values: [req.body.email],
   };
   client.query(query, (err, p_res) => {
     if(err) console.log("Error", err);
     else {
-      // var password = p_res.rows[0].password;
-      // var salt = password.split("\\.")[0];
+      if (p_res.rowCount == 0) {
+        console.log("Email not in base");
+        const query = {
+          text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null, null)',
+          values: [req.body.email, uuidv1(), bcrypt.hashSync(req.body.password, saltRounds), req.body.pseudo]
+        };
+        client.query(query, (err, p_res) => {
+          if(err) console.log("Error", err);
+          else {
+            res.status(200);
+      
+            //REDIRECT MON COMPTE
+            res.redirect("/");
+          }
+        });
 
-      // if(bcrypt.hashSync(req.body.password, salt)===password) {  // if password OK
-      //   res.status(200);
-      //   res.redirect("/");
-      // } else {                          // if password KO
-      //   res.status(401);
-      //   res.send();
-      // }
+      } else {
+        //Email in base
+        res.status(402);
+        res.send();
+      }
     }
   });
 });

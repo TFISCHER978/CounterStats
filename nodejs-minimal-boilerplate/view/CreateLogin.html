@@ -64,10 +64,14 @@
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" id="confirm_password" placeholder="confirm password">
-                <span id='message'></span>
             </div>
 
-            <button id="submit" type="button" class="btn btn-success">Sign up</button>
+                <!-- ERROR CSS -> createAccount.css-->
+            <div id="error">
+                <p id="pError" class="alert alert-danger"></p>
+            </div>
+
+            <button id="submit" type="button" class="btn btn-success" disabled>Sign up</button>
 
 			
         </form>
