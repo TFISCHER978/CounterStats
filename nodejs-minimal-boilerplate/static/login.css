@@ -1,8 +1,12 @@
 /* Sticky footer styles
 -------------------------------------------------- */
-@font-face{     /* ToDo : implémenter le font */
+@font-face{    
     font-family: csFont;
     src: url(cs_regular.ttf);
+}
+
+*{
+    box-sizing: initial;
 }
 
 html {
@@ -28,7 +32,18 @@ body {
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
+header nav{
+    background-color: rgb(29, 29, 29);
+}
 
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
 
 body > .container {
   padding: 60px 15px 0;
@@ -56,6 +71,15 @@ h1{
     margin-top: 5%;
 }
 
+label{
+    display: block;
+    text-align: center;
+    margin-bottom: 2%;
+    font-size: 450%;
+    color: white;
+    
+}
+
 video {
   position: fixed;
   top: 0; 
@@ -70,4 +94,8 @@ video {
 #error{
   visibility: hidden;
   
+}
+
+.btn-warning{
+    color: white;
 }
