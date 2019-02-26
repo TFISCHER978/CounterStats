@@ -29,4 +29,12 @@ $(document).ready(function() {
         if(evt.keyCode === 13) $('#login-submit').trigger('click');
     });
 
+    $('#password, #email').on('keyup', function () {
+        if ( !($('#email').val() === "") && !($('#password').val() === "") ) {           
+                $('#login-submit').prop('disabled', false);
+        } else {
+            $('#login-submit').prop('disabled', true);
+        }
+    });
+
 });
