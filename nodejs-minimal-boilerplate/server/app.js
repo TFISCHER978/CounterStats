@@ -124,7 +124,7 @@ app.post("/create_account",function(req, res) {
     if(err) console.log("Error", err);
     else {
       if (p_res.rowCount == 0) {
-        console.log("Email not in base");
+        // console.log("Email not in base");
         const query = {
           text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null, null)',
           values: [req.body.email, uuidv1(), bcrypt.hashSync(req.body.password, saltRounds), req.body.pseudo]
@@ -132,10 +132,27 @@ app.post("/create_account",function(req, res) {
         client.query(query, (err, p_res) => {
           if(err) console.log("Error", err);
           else {
-            res.status(200);
-      
-            //REDIRECT MON COMPTE
-            res.redirect("/");
+
+            // Recup in base data => session
+            const query2 = {
+              text: 'SELECT * FROM public.user WHERE email=$1',
+              values: [req.body.email]
+            };
+            client.query(query2, (err, p_res) => {
+              if(err) console.log("Error", err);
+              else {
+                if (p_res.rowCount == 1) {
+                  req.session.userName=p_res.rows[0].pseudo;
+                  req.session.userEmail=p_res.rows[0].email;
+                  req.session.userId=p_res.rows[0].id;
+                  req.session.manager=p_res.rows[0].manager;
+                  req.session.teamId=p_res.rows[0].team_id;     
+
+                  res.status(200);
+                  res.redirect("/myaccount");
+                }
+              }
+            });
           }
         });
 
@@ -150,7 +167,7 @@ app.post("/create_account",function(req, res) {
 
 app.get("/myaccount", function(req, res) {
 
-  if (req.session.userName != null) {
+  if (req.session && req.session.userName) {
     const content = fs.readFileSync(`${__dirname}/../view/MyAccount.html`);
     res.set("Content-Type", "text/html");
     res.send(content.toString());
@@ -159,6 +176,18 @@ app.get("/myaccount", function(req, res) {
   }
 });
 
+app.get("/team", function(req, res) {
+
+  if (req.session && req.session.userName) {
+    const content = fs.readFileSync(`${__dirname}/../view/team.html`);
+    res.set("Content-Type", "text/html");
+    res.send(content.toString());
+  } else {
+    res.redirect("/login");
+  }
+});
+
+// get all session storage
 app.get("/session", function(req,res) {
   if(req.session && req.session.userName){
     res.setHeader('Content-Type', 'application/json');
@@ -171,6 +200,42 @@ app.get("/session", function(req,res) {
   }
   else{
     res.send('noUser');
+  }
+});
+
+// get team member based on current session user
+app.get("/teamInfo", function(req,res) {
+  if(req.session && req.session.teamId != null){
+    const { Client } = require('pg')
+    const config = {
+      connectionString: databaseUrl
+    };
+    const client = new Client(config);
+    
+    client.connect()
+    const query = {
+      text: 'SELECT pseudo,email FROM "user" WHERE team_id=$1',
+      values: [req.session.teamId],
+    };
+    client.query(query, (err, p_res) => {
+      if(err) console.log("Error", err);
+      else {
+        res.setHeader('Content-Type', 'application/json');
+
+        var teamJson = [];
+
+        for (var i = 0; i < p_res.rowCount; i++) {
+          teamJson.push({              
+            pseudo: p_res.rows[i].pseudo,
+            email: p_res.rows[i].email
+          });      
+        }
+        res.end(JSON.stringify(teamJson, null, 3));
+      }
+    });
+  }
+  else{
+    res.send('noTeam');
   }
 });
 
