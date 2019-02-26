@@ -33,8 +33,8 @@ app.use(require('express-session')({
 
 app.get("/", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/index.html`);
-  // const token = req.headers.authorization;
-  // const origin = req.headers.origin;
+  const token = req.headers.authorization;
+  const origin = req.headers.origin;
   res.set("Content-Type", "text/html");
   res.send(content.toString());
 });
