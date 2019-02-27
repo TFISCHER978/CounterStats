@@ -1,4 +1,4 @@
-/* Sticky footer styles
+﻿/* Sticky footer styles
 -------------------------------------------------- */
 @font-face{     /* ToDo : implémenter le font */
     font-family: csFont;
@@ -14,6 +14,7 @@ body {
   margin-bottom: 60px;
   font-family: csFont, italic;
   background: url(ressource/font_test.jpg) no-repeat fixed center;
+  	
 }
 .footer {
   position: absolute;
