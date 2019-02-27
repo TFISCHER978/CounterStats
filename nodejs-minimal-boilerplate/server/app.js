@@ -214,7 +214,7 @@ app.get("/teamInfo", function(req,res) {
     
     client.connect()
     const query = {
-      text: 'SELECT pseudo,email FROM "user" WHERE team_id=$1',
+      text: 'SELECT pseudo,email,manager FROM "user" WHERE team_id=$1',
       values: [req.session.teamId],
     };
     client.query(query, (err, p_res) => {
@@ -227,7 +227,8 @@ app.get("/teamInfo", function(req,res) {
         for (var i = 0; i < p_res.rowCount; i++) {
           teamJson.push({              
             pseudo: p_res.rows[i].pseudo,
-            email: p_res.rows[i].email
+            email: p_res.rows[i].email,
+            isManager: p_res.rows[i].manager
           });      
         }
         res.end(JSON.stringify(teamJson, null, 3));

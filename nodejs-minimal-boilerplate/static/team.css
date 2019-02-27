@@ -37,6 +37,14 @@ th {
     padding: 2px;
 }
 
+#manager {
+  background:#FFFF66;
+}
+
+.player {
+  background:#C0C0C0;
+}
+
 /* When no team => visible */
 #noTeam{
     visibility: hidden;
