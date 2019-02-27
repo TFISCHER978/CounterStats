@@ -1,6 +1,6 @@
 ﻿/* Sticky footer styles
 -------------------------------------------------- */
-@font-face{     /* ToDo : implémenter le font */
+@font-face{
     font-family: csFont;
     src: url(cs_regular.ttf);
 }
@@ -10,19 +10,19 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  font-family: csFont, italic;
-  background: url(ressource/font_test.jpg) no-repeat fixed center;
+    margin-bottom: 60px;
+    font-family: csFont, italic;
+    background: url(ressource/font_test.jpg) no-repeat center center fixed;
+    background-size: cover;
+
   	
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
   height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;
   background-color: #f5f5f5;
 }
 /* Custom page CSS
