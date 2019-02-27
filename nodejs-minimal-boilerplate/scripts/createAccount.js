@@ -5,7 +5,7 @@ $(document).ready(function() {
             email: $("#email").val(),
             password: $("#password").val()
         };
-        fetch("/create_account", {
+        fetch("/createaccount", {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
@@ -22,9 +22,11 @@ $(document).ready(function() {
             })
         });
 
-    $('#login').on('keyup', '.form-control', function(evt){
-        if(evt.keyCode === 13) $('#login-submit').trigger('click');
-    });
+        $(document).bind('keypress', function(e) {
+            if(e.keyCode==13){
+                 $('#submit').trigger('click');
+             }
+        });
 
 
     $('#password, #confirm_password').on('keyup', function () {

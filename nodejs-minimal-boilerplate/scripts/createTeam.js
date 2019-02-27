@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    $('#login-submit').click( function () {
+    $('#submit').click( function () {
         var data = {
-            email: $("#email").val(),
-            password: $("#password").val()
+            name: $("#Name").val(),
+            tag: $("#Tag").val()
         };
-        fetch("/login", {
+        fetch("/createteam", {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
@@ -14,28 +14,24 @@ $(document).ready(function() {
             .then(response => {
                 if (response.status === 200) window.location.href = response.url;
 
-                if (response.status === 401) {
-                    $("#error").css("visibility","visible");
-                    $("#pError").text("Incorrect username or password.");
-                }
                 if (response.status === 402) {
                     $("#error").css("visibility","visible");
-                    $("#pError").text("Email not known.");
+                    $("#pError").text("Name already used.");
                 }     
             })
         });
 
         $(document).bind('keypress', function(e) {
             if(e.keyCode==13){
-                 $('#login-submit').trigger('click');
+                 $('#submit').trigger('click');
              }
         });
 
-    $('#password, #email').on('keyup', function () {
-        if ( !($('#email').val() === "") && !($('#password').val() === "") ) {           
-                $('#login-submit').prop('disabled', false);
+    $('#Name, #Tag').on('keyup', function () {
+        if ( !($('#Tag').val() === "") && !($('#Name').val() === "") ) {           
+                $('#submit').prop('disabled', false);
         } else {
-            $('#login-submit').prop('disabled', true);
+            $('#submit').prop('disabled', true);
         }
     });
 
