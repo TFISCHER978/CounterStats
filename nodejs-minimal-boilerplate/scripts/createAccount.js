@@ -12,21 +12,22 @@ $(document).ready(function() {
             },
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
-            .then(response => {
-                if (response.status === 200) window.location.href = response.url;
+        .then(response => {
+            if (response.status === 200) window.location.href = response.url;
 
-                if (response.status === 402) {
-                    $("#error").css("visibility","visible");
-                    $("#pError").text("Email already used.");
-                }
-            })
-        });
+            if (response.status === 402) {
+                $("#error").css("visibility","visible");
+                $("#pError").text("Email already used.");
+            }
+        })
+    });
+ 
 
-        $(document).bind('keypress', function(e) {
-            if(e.keyCode==13){
-                 $('#submit').trigger('click');
-             }
-        });
+    $(document).bind('keypress', function(e) {
+        if(e.keyCode==13){
+             $('#submit').trigger('click');
+         }
+    });
 
 
     $('#password, #confirm_password').on('keyup', function () {
@@ -41,7 +42,7 @@ $(document).ready(function() {
                 $('#password').toggleClass('is-invalid');
             }
         }
-      });
+    });
 
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

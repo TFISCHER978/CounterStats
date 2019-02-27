@@ -29,8 +29,10 @@
 /* table for members */
 table {
   border: 1px solid #666;   
-    width: 30%;
+    width: 50%;
     border-radius: 25%;
+    margin-left: auto;
+    margin-right: auto;
 }
 th {
   background: #f8f8f8; 
@@ -45,9 +47,3 @@ th {
 .player {
   background:#C0C0C0;
 }
-
-/* When no team => visible */
-.noTeam{
-    visibility: hidden;
-    
-  }

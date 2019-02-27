@@ -231,7 +231,6 @@ app.get("/teamInfo", function(req,res) {
             isManager: p_res.rows[i].manager
           });      
         }
-        teamJson.push({length: p_res.rowCount});
         res.end(JSON.stringify(teamJson, null, 3));
       }
     });
@@ -266,7 +265,7 @@ app.post("/createteam",function(req, res) {
   //Check mail not in base
 
   const query = {
-    text: 'SELECT * FROM public.team WHERE T_name=$1',
+    text: 'SELECT * FROM "public"."team" WHERE "T_name"=$1',
     values: [req.body.name],
   };
   client.query(query, (err, p_res) => {
@@ -274,9 +273,10 @@ app.post("/createteam",function(req, res) {
     else {
       if (p_res.rowCount == 0) {
         // console.log("Team not in base");
+        const teamId = uuidv1();
         const query = {
-          text: 'INSERT INTO public.team VALUES ($1, $2, $3)',
-          values: [uuidv1(), req.body.name, req.body.tag]
+          text: 'INSERT INTO "public"."team" VALUES ($1, $2, $3)',
+          values: [teamId, req.body.name, req.body.tag]
         };
         client.query(query, (err, p_res) => {
           if(err) console.log("Error", err);
@@ -284,14 +284,15 @@ app.post("/createteam",function(req, res) {
 
             // Recup in base data => session
             const query2 = {
-              text: 'UPDATE "public"."user" SET "team_id" = (SELECT "T_id" from team Where "T_name" = $1) WHERE "id" = $2',
+              text: 'UPDATE "public"."user" SET "team_id" = (SELECT "T_id" from "public"."team" Where "T_name"=$1), "manager" = true WHERE "id" = $2',
               values: [req.body.name, req.session.userId]
             };
             client.query(query2, (err, p_res) => {
               if(err) console.log("Error", err);
               else {
-                  res.status(200);
-                  res.redirect("/team");
+                req.session.teamId=teamId;
+                res.status(200);
+                res.redirect("/team");
               }
             });
           }
@@ -304,6 +305,15 @@ app.post("/createteam",function(req, res) {
       }
     }
   });
+});
+
+
+app.post("/joinTeam", function(req,res) {
+
+  //join team
+  // => check code in base and note used
+  // => do somethings
+
 });
 
 
