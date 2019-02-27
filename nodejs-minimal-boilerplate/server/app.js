@@ -98,13 +98,13 @@ app.post("/login", function(req, res) {
 });
 
 
-app.get("/create_account", function(req, res) {
+app.get("/createaccount", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/CreateLogin.html`);
   res.set("Content-Type", "text/html");
   res.send(content.toString());
 });
 
-app.post("/create_account",function(req, res) {
+app.post("/createaccount",function(req, res) {
   const { Client } = require('pg')
   const config = {
     connectionString: databaseUrl
@@ -231,6 +231,7 @@ app.get("/teamInfo", function(req,res) {
             isManager: p_res.rows[i].manager
           });      
         }
+        teamJson.push({length: p_res.rowCount});
         res.end(JSON.stringify(teamJson, null, 3));
       }
     });
@@ -239,6 +240,72 @@ app.get("/teamInfo", function(req,res) {
     res.send('noTeam');
   }
 });
+
+
+app.get("/createteam", function(req, res) {
+
+  if (req.session && req.session.userName && req.session.teamId == null) {
+    const content = fs.readFileSync(`${__dirname}/../view/CreateTeam.html`);
+    res.set("Content-Type", "text/html");
+    res.send(content.toString());
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.post("/createteam",function(req, res) {
+  const { Client } = require('pg')
+  const config = {
+    connectionString: databaseUrl
+  };
+  const client = new Client(config);
+  const saltRounds = 10;
+  
+  client.connect()
+
+  //Check mail not in base
+
+  const query = {
+    text: 'SELECT * FROM public.team WHERE T_name=$1',
+    values: [req.body.name],
+  };
+  client.query(query, (err, p_res) => {
+    if(err) console.log("Error", err);
+    else {
+      if (p_res.rowCount == 0) {
+        // console.log("Team not in base");
+        const query = {
+          text: 'INSERT INTO public.team VALUES ($1, $2, $3)',
+          values: [uuidv1(), req.body.name, req.body.tag]
+        };
+        client.query(query, (err, p_res) => {
+          if(err) console.log("Error", err);
+          else {
+
+            // Recup in base data => session
+            const query2 = {
+              text: 'UPDATE "public"."user" SET "team_id" = (SELECT "T_id" from team Where "T_name" = $1) WHERE "id" = $2',
+              values: [req.body.name, req.session.userId]
+            };
+            client.query(query2, (err, p_res) => {
+              if(err) console.log("Error", err);
+              else {
+                  res.status(200);
+                  res.redirect("/team");
+              }
+            });
+          }
+        });
+
+      } else {
+        //Team in base
+        res.status(401);
+        res.send();
+      }
+    }
+  });
+});
+
 
 // Logout
 app.get('/logout', function(req, res, next) {

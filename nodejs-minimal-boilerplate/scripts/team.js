@@ -3,16 +3,16 @@ $(document).ready(function() {
     var teamId = null;
 
     $.getJSON( "/session", function( data ) {
-        $.each( data, function( key, val ) {
-            if (key === "teamId") teamId = val;
+        // $.each( data, function( key, val ) {
+        //     if (key === "teamId" && val != null) teamId = val;
 
-            $("#" + key).text(key + " : " + val);
-        });
+        //     $("#" + key).text(key + " : " + val);
+        // });
 
         if (teamId == null) {
-            $('#noTeam').css("visibility","visible");
+            $('.noTeam').css("visibility","visible");
         } else {
-            $('#noTeam').css("visibility","hidden");
+            $('.noTeam').css("visibility","hidden");
             $.getJSON('/teamInfo', function (data) {
                 drawTable(data);
             });

@@ -47,7 +47,7 @@ th {
 }
 
 /* When no team => visible */
-#noTeam{
+.noTeam{
     visibility: hidden;
     
   }
