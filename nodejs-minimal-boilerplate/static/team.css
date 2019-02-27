@@ -30,6 +30,7 @@
 table {
   border: 1px solid #666;   
     width: 30%;
+    border-radius: 25%;
 }
 th {
   background: #f8f8f8; 
