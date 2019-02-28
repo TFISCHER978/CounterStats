@@ -11,12 +11,12 @@ describe("Test the root path", () => {
   //  const response = await request(app).get("/static/home.css");
   //  expect(response.statusCode).toBe(200);
   //});
-  test("It should serve login.css file", async () => {
-    const response = await request(app).get("/static/login.css");
-    expect(response.statusCode).toBe(200);
-  });
-  test("It should serve signup.css file", async () => {
-    const response = await request(app).get("/static/signup.css");
-    expect(response.statusCode).toBe(200);
-  });
+  //test("It should serve login.css file", async () => {
+  //  const response = await request(app).get("/static/login.css");
+  //  expect(response.statusCode).toBe(200);
+  //});
+  //test("It should serve signup.css file", async () => {
+  //  const response = await request(app).get("/static/signup.css");
+  //  expect(response.statusCode).toBe(200);
+  //});
 });
