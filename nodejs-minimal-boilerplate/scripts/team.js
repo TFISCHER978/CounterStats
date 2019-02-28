@@ -20,31 +20,6 @@ $(document).ready(function() {
     });
 
 
-    $('#submitCode').click( function () {
-        var data = {
-            code: $("#codeInput").val()
-        };
-        fetch("/joinTeam", {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-            body: JSON.stringify(data), // body data type must match "Content-Type" header
-        })
-            .then(response => {
-                if (response.status === 200) window.location.href = response.url;
-
-                if (response.status === 401) {
-                    $("#error").css("visibility","visible");
-                    $("#pError").text("Incorrect username or password.");
-                }
-                if (response.status === 402) {
-                    $("#error").css("visibility","visible");
-                    $("#pError").text("Email not known.");
-                }     
-            })
-        });
-
 
     function drawOption() {
         var main = document.getElementsByTagName('main')[0];
@@ -84,7 +59,10 @@ $(document).ready(function() {
         var button = document.createElement('button');
         button.setAttribute('id', 'submitCode');
         button.setAttribute('type', 'button');
-        button.setAttribute('class', 'btn btn-primary mb-2');
+        button.setAttribute('class', 'btn btn-primary mb-2 csFont');
+        button.addEventListener('click', function() {
+            submitCode();
+        });
         button.innerHTML = "Join Team";
 
         form.appendChild(div);
@@ -111,11 +89,7 @@ $(document).ready(function() {
         //ajout invitation team
         if (data.length < 6) {
             for (var i = 0; i < (6-data.length); i++) {
-                var inputRow = document.createElement('tr')
-                var inputCell = document.createElement('td')
-
-                inputRow.append("New player");
-                inputRow.append(inputCell);
+                var inputRow = "<tr><td>Void</td><td>Void</td><td>Void</td></tr>"
                 $("#personDataTable").append(inputRow);
             }
 
@@ -126,8 +100,18 @@ $(document).ready(function() {
             var div = document.createElement('div');
             div.setAttribute('class', 'input-group mb-2 mr-sm-2')
 
+            var div2 = document.createElement('div');
+            div2.setAttribute('class', 'input-group-prepend');
+
+            var div3 = document.createElement('div');
+            div3.setAttribute('class', 'input-group-text');
+            div3.innerHTML = "Add member"
+
+            div2.append(div3)
+            div.append(div2)
+
             var input = document.createElement('input');
-            input.setAttribute('type', 'text');
+            input.setAttribute('type', 'email');
             input.setAttribute('class', 'form-control');
             input.setAttribute('id', 'newMemberEmail');
             input.setAttribute('placeholder', 'Email');
@@ -138,6 +122,9 @@ $(document).ready(function() {
             button.setAttribute('id', 'submitInvit');
             button.setAttribute('type', 'button');
             button.setAttribute('class', 'btn btn-primary mb-2');
+            button.addEventListener('click', function() {
+                addMember();
+            });
             button.innerHTML = "Invit";
 
             form.appendChild(div);
@@ -158,5 +145,59 @@ $(document).ready(function() {
             $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
         }
     }
+
+
+    // utiliser un code invitation
+    function submitCode() {
+        var data = {
+            code: $("#codeInput").val()
+        };
+        fetch("/joinTeam", {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+        })
+        .then(response => {
+            if (response.status === 200) window.location.href = response.url;
+
+            if (response.status === 401) {
+                $("#error").css("visibility","visible");
+                $("#pError").text("Incorrect username or password.");
+            }
+            if (response.status === 402) {
+                $("#error").css("visibility","visible");
+                $("#pError").text("Email not known.");
+            }     
+        })
+    };
+
+    // envoyer un code à un email
+    function addMember() {
+        console.log("qfsefsef");
+
+        var data = {
+            email: $("#newMemberEmail").val(),
+        };
+        fetch("/addMember", {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+        })
+            .then(response => {
+                if (response.status === 200) alert("Invit send to : " + $("#newMemberEmail").val());
+
+                $("#newMemberEmail").val('');
+
+                if (response.status === 401) {
+                    // $("#error").css("visibility","visible");
+                    // $("#pError").text("Email not known.");
+                    alert("Email not known.")
+                }     
+            })
+    };
 
 });

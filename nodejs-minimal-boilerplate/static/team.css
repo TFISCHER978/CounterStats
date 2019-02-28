@@ -29,15 +29,15 @@
 /* table for members */
 table {
   border: 1px solid #666;   
-    width: 50%;
-    border-radius: 25%;
-    margin-left: auto;
-    margin-right: auto;
+  width: 50%;
+  border-radius: 25%;
+  margin-left: auto;
+  margin-right: auto;
 }
 th {
   background: #f8f8f8; 
   font-weight: bold;    
-    padding: 2px;
+  padding: 2px;
 }
 
 #manager {
@@ -46,4 +46,11 @@ th {
 
 .player {
   background:#C0C0C0;
+}
+
+#joinTeam {
+  margin-top: 3%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
