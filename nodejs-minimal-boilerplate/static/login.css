@@ -25,18 +25,14 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
   height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px; 
   background-color: #f5f5f5;
 }
 
 form {
     padding-top: 0;
 }
-/* Custom page CSS
-  -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
 
 header nav{
     background-color: white;
@@ -85,8 +81,10 @@ label{
     display: block;
     text-align: center;
     margin-bottom: 2%;
+    padding: .375rem .75rem;
     font-size: 450%;
-    color: white;   
+    color: white; 
+    background-color: rgba(29,29,29,.5);
 }
 
 input{
@@ -111,4 +109,22 @@ video {
 .btn-danger{
     background-color: darkred;
     border-color: darkred;
+}
+
+form{
+    width: 100%;
+    display: block;
+}
+
+.form-group input{
+    border: 0px;
+}
+
+.form-control {
+    padding: .5em;
+}
+
+::placeholder{
+    padding-left: 1%;
+    font-family: inherit;
 }
