@@ -19,8 +19,7 @@ $(document).ready(function() {
                 alert("Seems like you're not team manager.")
             }
         })
-    });
- 
+    }); 
 
     $(document).bind('keypress', function(e) {
         if(e.keyCode==13){

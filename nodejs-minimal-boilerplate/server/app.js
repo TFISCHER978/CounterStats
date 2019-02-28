@@ -539,11 +539,13 @@ app.get("/traininginfo", function(req,res) {
             time: p_res.rows[i].tr_date
           });      
         }
+        res.status(200)
         res.end(JSON.stringify(teamJson, null, 3));
       }
     });
   }
   else{
+    res.status(401)
     res.send('noTraining');
   }
 });
