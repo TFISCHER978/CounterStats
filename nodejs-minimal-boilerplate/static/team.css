@@ -3,6 +3,50 @@
   src: url(cs_regular.ttf);
 }
 
+nav{
+    background-color: rgb(29, 29, 29, .5);
+}
+
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+.csFont{
+    font-family: csFont, italic;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+form{
+    text-align: center;
+}
+
+body{
+    background: url(ressource/team_bg.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+#pInfo{
+    color: white;
+    background-color: rgba(29,29,29,.5);
+    text-align: center;
+    margin-top: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+#buttonCTeam{
+    margin-top: 2%;
+    font-size: 35px;
+    text-align: center;
+}
 
 #menu ul {
   margin:0;
