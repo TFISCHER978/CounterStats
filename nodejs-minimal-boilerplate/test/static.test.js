@@ -19,4 +19,7 @@ describe("Test the root path", () => {
   //  const response = await request(app).get("/static/signup.css");
   //  expect(response.statusCode).toBe(200);
   //});
+  test("It should be 1", async () => {
+    expect(1).toBe(1);
+  });
 });
