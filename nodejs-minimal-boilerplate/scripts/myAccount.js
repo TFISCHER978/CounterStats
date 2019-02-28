@@ -11,7 +11,11 @@ $(document).ready(function() {
             //no team
         } else {
             $.getJSON('/traininginfo', function (data) {
-                if (data.length > 0) drawTable(data);
+                if (data.length > 0) {
+                    drawTable(data);
+                } else {
+                    
+                }
             });
         }
     });
