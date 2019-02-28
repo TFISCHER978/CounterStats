@@ -33,7 +33,7 @@ $(document).ready(function() {
         var link = document.createElement('a');
         var button = document.createElement('button');
 
-        link.setAttribute('href', 'createteam');       
+        link.setAttribute('href', 'createteam');
         button.innerHTML = "Create your team";
         button.setAttribute("class", "btn btn-success csFont btn-block");
         button.setAttribute('id', 'buttonCTeam')
