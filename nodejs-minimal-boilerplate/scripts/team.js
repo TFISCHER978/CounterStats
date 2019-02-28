@@ -27,7 +27,7 @@ $(document).ready(function() {
         // Info no team
         var pInfo = document.createElement('h2');
         pInfo.setAttribute("id", "pInfo");
-        pInfo.innerHTML = "Looks like you don’t have a team yet.";
+        pInfo.innerHTML = "Dear lone wolf, it's time to shine in the field ! Go find your team mates for ez peasy lemon squeezy games !";
 
         // Button create Team
         var link = document.createElement('a');
@@ -35,7 +35,7 @@ $(document).ready(function() {
 
         link.setAttribute('href', 'createteam');       
         button.innerHTML = "Create your team";
-        button.setAttribute("class", "btn btn-success csFont");
+        button.setAttribute("class", "btn btn-success csFont btn-block");
         button.setAttribute('id', 'buttonCTeam')
         link.append(button)
    

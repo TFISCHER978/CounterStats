@@ -464,9 +464,13 @@ app.post("/addMember", function(req,res) {
 
 
 app.get("/newtraining", function(req, res) {
-  const content = fs.readFileSync(`${__dirname}/../view/Coach.html`);
-  res.set("Content-Type", "text/html");
-  res.send(content.toString());
+  if(req.session && req.session.teamId != null && req.session.manager){
+    const content = fs.readFileSync(`${__dirname}/../view/Coach.html`);
+    res.set("Content-Type", "text/html");
+    res.send(content.toString());
+  } else {
+    res.redirect("/login");
+  }
 });
 
 
@@ -480,39 +484,68 @@ app.post('/newtraining', function(req,res) {
   
   client.connect()
 
-  const query = {
-    text: 'SELECT manager FROM public.user WHERE email=$1',
-    values: [req.session.email],
-  };
-  client.query(query, (err, p_res) => {
-    if(err) console.log("Error", err);
-    else {
-      if (p_res.rowCount == 1 && p_res.rows[0].manager) {
+  if (req.session.manager) {
 
-        var uuid = uuidv1();
-        var date = req.body.date;
-        var time = req.body.time;
-        var fulldate = 0;
+    var uuid = uuidv1();
+    var date = req.body.date;
+    var time = req.body.time;
+    var fulldate = date + " " + time;
 
-        const query = {
-          text: 'INSERT INTO "public"."training" ("tr_id", "tr_date", "team_id", "tr_goal") VALUES ($1, $2, $3, $4)',
-          values: [uuid,fulldate,req.session.teamId,req.body.goal]
-        };
-        client.query(query, (err, p_res) => {
-          if(err) console.log("Error", err);
-          else {
-            res.status(200);
-            res.send();
-          }
-        });
-
-      } else {
-        //mail not in base
-        res.status(401);
-        res.send();
+    const query = {
+      text: 'INSERT INTO "public"."training" ("tr_id", "tr_date", "team_id", "tr_goal") VALUES ($1, $2, $3, $4)',
+      values: [uuid,fulldate,req.session.teamId,req.body.goal]
+    };
+    client.query(query, (err, p_res) => {
+      if(err) console.log("Error", err);
+      else {
+        res.status(200);
+        res.redirect("/myaccount");
       }
-    }
-  });
+    });
+
+  } else {
+    //mail not in base
+    res.status(401);
+    res.send();
+  }
+});
+
+// get training based on user team_id
+app.get("/traininginfo", function(req,res) {
+  if(req.session && req.session.teamId != null){
+    const { Client } = require('pg')
+    const config = {
+      connectionString: databaseUrl
+    };
+    const client = new Client(config);
+    
+    client.connect()
+    const query = {
+      text: 'SELECT tr_date,tr_goal FROM "training" WHERE team_id=$1',
+      values: [req.session.teamId],
+    };
+    client.query(query, (err, p_res) => {
+      if(err) console.log("Error", err);
+      else {
+        res.setHeader('Content-Type', 'application/json');
+
+        var teamJson = [];
+
+        //JSONIFIER TOUT LES TRAINING
+
+        for (var i = 0; i < p_res.rowCount; i++) {
+          teamJson.push({
+            goal: p_res.rows[i].tr_goal,
+            time: p_res.rows[i].tr_date
+          });      
+        }
+        res.end(JSON.stringify(teamJson, null, 3));
+      }
+    });
+  }
+  else{
+    res.send('noTraining');
+  }
 });
 
 // Logout
