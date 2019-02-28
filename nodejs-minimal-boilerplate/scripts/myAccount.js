@@ -1,10 +1,11 @@
 $(document).ready(function() {
+    var messages = ["We were expecting you ( ͡° ͜ʖ ͡°)", "We hope you brought pizza.", "Leave your weapons by the door."];
 
     $.getJSON( "/session", function( data ) {
         $.each( data, function( key, val ) {
             if (key === "teamId" && val != null) teamId = val;
 
-            $("#" + key).text(val + "");
+            $("#" + key).text("Welcome " + val + " " + messages[Math.floor(Math.random() * messages.length)]);
         });
 
         if (teamId == null) {

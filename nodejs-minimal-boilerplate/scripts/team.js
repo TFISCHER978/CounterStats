@@ -200,7 +200,10 @@ $(document).ready(function() {
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
         .then(response => {
-            if (response.status === 200) window.location.href = response.url;
+            if (response.status === 200) {
+                window.location.href = response.url;
+                window.location.reload();
+            }
 
             if (response.status === 401) {
                 alert("This code doesn't exist.")
