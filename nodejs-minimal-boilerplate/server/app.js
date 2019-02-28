@@ -28,6 +28,14 @@ app.use(bodyParser.json());
 // set morgan to log info about our requests for development use.
 app.use(morgan('dev'));
 
+const { Client } = require('pg')
+const config = {
+  connectionString: databaseUrl
+};
+const client = new Client(config);
+
+client.connect()
+
 app.use(require('express-session')({
   name: 'session', // The name of the cookie
   secret: process.env.SECRET, // The secret is required, and is used for signing cookies
@@ -51,13 +59,7 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", function(req, res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  
-  client.connect()
+
   const query = {
     text: 'SELECT * FROM public.user WHERE email=$1',
     values: [req.body.email],
@@ -109,14 +111,7 @@ app.get("/createaccount", function(req, res) {
 });
 
 app.post("/createaccount",function(req, res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
   const saltRounds = 10;
-  
-  client.connect()
 
   //Check mail not in base
 
@@ -210,13 +205,7 @@ app.get("/session", function(req,res) {
 // get team member based on current session user
 app.get("/teamInfo", function(req,res) {
   if(req.session && req.session.teamId != null){
-    const { Client } = require('pg')
-    const config = {
-      connectionString: databaseUrl
-    };
-    const client = new Client(config);
-    
-    client.connect()
+
     const query = {
       text: 'SELECT pseudo,email,manager FROM "user" WHERE team_id=$1',
       values: [req.session.teamId],
@@ -264,14 +253,7 @@ app.get("/createteam", function(req, res) {
 });
 
 app.post("/createteam",function(req, res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
   const saltRounds = 10;
-  
-  client.connect()
 
   //Check mail not in base
 
@@ -324,14 +306,6 @@ app.post("/joinTeam", function(req,res) {
   //join team
   // => check code in base and note used
   // => do somethings
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  const saltRounds = 10;
-  
-  client.connect()
 
   const query = {
     text: 'SELECT * FROM public.invitcode WHERE code=$1',
@@ -395,14 +369,6 @@ app.post("/joinTeam", function(req,res) {
 
 
 app.post("/addMember", function(req,res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  const saltRounds = 10;
-  
-  client.connect()
 
   const query = {
     text: 'SELECT * FROM public.user WHERE email=$1',
@@ -475,14 +441,6 @@ app.get("/newtraining", function(req, res) {
 
 
 app.post('/newtraining', function(req,res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  const saltRounds = 10;
-  
-  client.connect()
 
   if (req.session.manager) {
 
@@ -513,13 +471,7 @@ app.post('/newtraining', function(req,res) {
 // get training based on user team_id
 app.get("/traininginfo", function(req,res) {
   if(req.session && req.session.teamId != null){
-    const { Client } = require('pg')
-    const config = {
-      connectionString: databaseUrl
-    };
-    const client = new Client(config);
-    
-    client.connect()
+
     const query = {
       text: 'SELECT tr_date,tr_goal FROM "training" WHERE team_id=$1',
       values: [req.session.teamId],
