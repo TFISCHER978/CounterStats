@@ -11,8 +11,6 @@ p{
     color: white;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 @font-face{
     font-family: csFont;
     src: url(cs_regular.ttf);
@@ -91,4 +89,8 @@ th{
 
 td{
     background-color: rgba(205,92,92,.5);
+}
+
+h1{
+    text-align: center;
 }
