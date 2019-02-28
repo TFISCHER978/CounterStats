@@ -5,7 +5,7 @@ $(document).ready(function() {
         $.each( data, function( key, val ) {
             if (key === "teamId" && val != null) teamId = val;
 
-            $("#" + key).text("Welcome " + val + " " + messages[Math.floor(Math.random() * messages.length)]);
+            $("#" + key).text("Welcome " + val + " ! " + messages[Math.floor(Math.random() * messages.length)]);
         });
 
         if (teamId == null) {
@@ -15,7 +15,10 @@ $(document).ready(function() {
                 if (data.length > 0) {
                     drawTable(data);
                 } else {
-
+                    var p = document.createElement('p');
+                    p.setAttribute("id", "messageInfo")
+                    p.innerHTML = "Sorry, my lord, you've already shot all the target.";
+                    document.getElementsByTagName('main')[0].appendChild(p);
                 }
             });
         }
@@ -46,8 +49,13 @@ $(document).ready(function() {
     function drawRow(rowData, index) {
         var j = new Array( "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" );
         var m = new Array( "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        if (new Date(rowData.time).getMinutes() <10) {
+            var minutes = "0"+new Date(rowData.time).getMinutes();
+        } else {
+            var minutes = new Date(rowData.time).getMinutes();
+        }
 
-        var row = "<tr><th scope='row'>" + (index+1) + "</th><td>" + rowData.goal + "</td><td>" + j[new Date(rowData.time).getDay() - 1] + ", " + m[new Date(rowData.time).getMonth()] + " " + new Date(rowData.time).getFullYear() + " " + new Date(rowData.time).getHours() + ":" + new Date(rowData.time).getMinutes() + "</td></tr>";
+        var row = "<tr><th scope='row'>" + (index+1) + "</th><td>" + rowData.goal + "</td><td>" + j[new Date(rowData.time).getDay() - 1] + ", " + m[new Date(rowData.time).getMonth()] + " " + new Date(rowData.time).getFullYear() + " " + new Date(rowData.time).getHours() + ":" + minutes + "</td></tr>";
         $("#trainingBody").append(row);
 
     }

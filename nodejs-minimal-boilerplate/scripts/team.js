@@ -179,10 +179,15 @@ $(document).ready(function() {
        
         if (rowData.isManager) {
             row = "<tr id='manager'><td>Manager " + you + "</td><td>" + pseudo + "</td><td>" + email + "</td></tr>";
-            $(row).insertBefore('table > tbody > tr:first');
+            if( index == 0) {
+                $("#dataBody").append(row);
+            } else {
+                $(row).insertBefore('table > tbody > tr:first');
+            }
+            
         } else {
             row = "<tr class='player'><td>Player " + you + "</td><td>" + pseudo + "</td><td>" + email + "</td></tr>";
-            $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+            $("#dataBody").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
         }
     }
 
