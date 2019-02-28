@@ -1,0 +1,22 @@
+[
+    {
+        "email": "tom.fischer978@gmail.com",
+        "password": "1234",
+        "pseudo": "Stive"
+    },
+    {
+        "email": "cas1-a@cs.net",
+        "password": "8HU2A98T",
+        "pseudo": "Clement"
+    },
+    {
+        "email": "cas1-b@cs.net",
+        "password": "8HU2A98T",
+        "pseudo": "Bepo"
+    },
+    {
+        "email": "cas2-a@cs.net",
+        "password": "8HU2A98T",
+        "pseudo": "KJH"
+    }
+]

@@ -1,0 +1,90 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+*{
+    box-sizing: initial;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  font-family: 'Gentium Book Basic', serif;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 50px;
+  font-family: csFont, italic;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+/* Custom page CSS
+  -------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+nav{
+    background-color: rgb(29, 29, 29, .5);
+}
+
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.logoCounterStats{
+    display: block;
+    margin: 0 auto;
+}
+
+#logoCounterStats img{
+    text-align: center;
+}
+
+#login{
+    float: right;
+}
+
+h1{
+    margin-top: 5%;
+}
+
+video {
+  position: fixed;
+  top: 0; 
+  width: 100vw;  
+  left: 0; 
+  z-index: -2;
+}
+
+form{
+    width: 100%;
+    display: block; 
+}
+
+input{
+    font-size: 30px;
+}
+
+/* ERROR CSS */
+
+#error{
+  visibility: hidden;
+  
+}

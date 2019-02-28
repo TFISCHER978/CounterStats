@@ -1,0 +1,114 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+@font-face{    
+    font-family: csFont;
+    src: url(cs_regular.ttf);
+}
+
+*{
+    box-sizing: initial;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background: url(CSGO%20Wallpaper.mp4);
+}
+
+.csFont{
+    font-family: csFont, italic;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+form {
+    padding-top: 0;
+}
+/* Custom page CSS
+  -------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+header nav{
+    background-color: white;
+}
+
+.normalFont input{
+    font-family: inherit;
+}
+
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.logoCounterStats{
+    display: block;
+    margin: 0 auto;
+}
+
+#logoCounterStats img{
+    text-align: center;
+}
+
+h1{
+    margin-top: 5%;
+}
+
+label{
+    display: block;
+    text-align: center;
+    margin-bottom: 2%;
+    font-size: 450%;
+    color: white;   
+}
+
+input{
+    font-family: inherit;
+}
+
+video {
+  position: fixed;
+  top: 0; 
+  width: 100vw;  
+  left: 0; 
+  z-index: -2;
+}
+
+
+/* ERROR CSS */
+
+#error{
+  visibility: hidden;
+}
+
+.btn-danger{
+    background-color: darkred;
+    border-color: darkred;
+}
