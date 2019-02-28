@@ -1,11 +1,16 @@
+
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: csFont, italic;
-  background-color: gray;
- width: 100%;
- height: auto;
+  width: 100%;
+  height: auto;
+  background: url(ressource/de_dust.png) no-repeat center center fixed;
+  background-size: cover;
 }
+
+
 
 
 #menu ul {

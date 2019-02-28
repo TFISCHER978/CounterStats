@@ -229,10 +229,17 @@ app.get("/teamInfo", function(req,res) {
         var teamJson = [];
 
         for (var i = 0; i < p_res.rowCount; i++) {
+          if (p_res.rows[i].email === req.session.userEmail) {
+            var isyou = true;
+          } else {
+            var isyou = false;
+          }
+
           teamJson.push({              
             pseudo: p_res.rows[i].pseudo,
             email: p_res.rows[i].email,
-            isManager: p_res.rows[i].manager
+            isManager: p_res.rows[i].manager,
+            you: isyou
           });      
         }
         res.end(JSON.stringify(teamJson, null, 3));
@@ -455,6 +462,12 @@ app.post("/addMember", function(req,res) {
   });
 });
 
+
+app.get("/newtraining", function(req, res) {
+  const content = fs.readFileSync(`${__dirname}/../view/Coach.html`);
+  res.set("Content-Type", "text/html");
+  res.send(content.toString());
+});
 
 // Logout
 app.get('/logout', function(req, res, next) {

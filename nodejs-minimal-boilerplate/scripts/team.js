@@ -93,55 +93,86 @@ $(document).ready(function() {
                 $("#personDataTable").append(inputRow);
             }
 
-            var form = document.createElement('form');
-            form.setAttribute('class', 'form-inline');
-            form.setAttribute('id', 'joinTeam')
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isManager) {
 
-            var div = document.createElement('div');
-            div.setAttribute('class', 'input-group mb-2 mr-sm-2')
+                    //Add form add player
+                    var form = document.createElement('form');
+                    form.setAttribute('class', 'form-inline');
+                    form.setAttribute('id', 'addMember')
 
-            var div2 = document.createElement('div');
-            div2.setAttribute('class', 'input-group-prepend');
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'input-group mb-2 mr-sm-2')
 
-            var div3 = document.createElement('div');
-            div3.setAttribute('class', 'input-group-text');
-            div3.innerHTML = "Add member"
+                    var div2 = document.createElement('div');
+                    div2.setAttribute('class', 'input-group-prepend');
 
-            div2.append(div3)
-            div.append(div2)
+                    var div3 = document.createElement('div');
+                    div3.setAttribute('class', 'input-group-text');
+                    div3.innerHTML = "Add member"
 
-            var input = document.createElement('input');
-            input.setAttribute('type', 'email');
-            input.setAttribute('class', 'form-control');
-            input.setAttribute('id', 'newMemberEmail');
-            input.setAttribute('placeholder', 'Email');
+                    div2.append(div3)
+                    div.append(div2)
 
-            div.appendChild(input);
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'email');
+                    input.setAttribute('class', 'form-control');
+                    input.setAttribute('id', 'newMemberEmail');
+                    input.setAttribute('placeholder', 'Email');
 
-            var button = document.createElement('button');
-            button.setAttribute('id', 'submitInvit');
-            button.setAttribute('type', 'button');
-            button.setAttribute('class', 'btn btn-primary mb-2');
-            button.addEventListener('click', function() {
-                addMember();
-            });
-            button.innerHTML = "Invit";
+                    div.appendChild(input);
 
-            form.appendChild(div);
-            form.appendChild(button);
+                    var button = document.createElement('button');
+                    button.setAttribute('id', 'submitInvit');
+                    button.setAttribute('type', 'button');
+                    button.setAttribute('class', 'btn btn-primary mb-2');
+                    button.addEventListener('click', function() {
+                        addMember();
+                    });
+                    button.innerHTML = "Invit";
 
-            document.getElementsByTagName('main')[0].appendChild(form);
+                    form.appendChild(div);
+                    form.appendChild(button);
+
+                    document.getElementsByTagName('main')[0].appendChild(form);
+                }
+            }
+        }
+
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].isManager) {
+                // Button create training
+                var link = document.createElement('a');
+                var button2 = document.createElement('button');
+
+                link.setAttribute('href', 'newtraining');
+                link.setAttribute('id', 'linkPlanTraining')
+                button2.innerHTML = "Plan a training";
+                button2.setAttribute("class", "btn btn-success csFont");
+                button2.setAttribute('id', 'buttonPlanTraining')
+                link.append(button2)
+
+                document.getElementsByTagName('main')[0].appendChild(link);
+            }
         }
     }
     
     function drawRow(rowData) {
         var row;
+
+        var pseudo = rowData.pseudo;
+        var email = rowData.email;
+        var you = "";
+
+        if (rowData.you) {
+            var you ="(You)"
+        }
        
         if (rowData.isManager) {
-            row = "<tr id='manager'><td>Manager</td><td>" + rowData.pseudo + "</td><td>" + rowData.email + "</td></tr>";
+            row = "<tr id='manager'><td>Manager " + you + "</td><td>" + pseudo + "</td><td>" + email + "</td></tr>";
             $("#tableHeader").after(row);
         } else {
-            row = "<tr class='player'><td>Player</td><td>" + rowData.pseudo + "</td><td>" + rowData.email + "</td></tr>";
+            row = "<tr class='player'><td>Player " + you + "</td><td>" + pseudo + "</td><td>" + email + "</td></tr>";
             $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
         }
     }
@@ -163,20 +194,13 @@ $(document).ready(function() {
             if (response.status === 200) window.location.href = response.url;
 
             if (response.status === 401) {
-                $("#error").css("visibility","visible");
-                $("#pError").text("Incorrect username or password.");
+                alert("This code doesn't exist.")
             }
-            if (response.status === 402) {
-                $("#error").css("visibility","visible");
-                $("#pError").text("Email not known.");
-            }     
         })
     };
 
     // envoyer un code à un email
     function addMember() {
-        console.log("qfsefsef");
-
         var data = {
             email: $("#newMemberEmail").val(),
         };
@@ -188,7 +212,10 @@ $(document).ready(function() {
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
             .then(response => {
-                if (response.status === 200) alert("Invit send to : " + $("#newMemberEmail").val());
+                if (response.status === 200) {
+                    alert("Invit send to : " + $("#newMemberEmail").val());
+
+                }
 
                 $("#newMemberEmail").val('');
 
