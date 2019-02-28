@@ -4,7 +4,7 @@ $(document).ready(function() {
         $.each( data, function( key, val ) {
             if (key === "teamId" && val != null) teamId = val;
 
-            $("#" + key).text(key + " : " + val);
+            $("#" + key).text(val + "");
         });
 
         if (teamId == null) {
@@ -14,7 +14,7 @@ $(document).ready(function() {
                 if (data.length > 0) {
                     drawTable(data);
                 } else {
-                    
+
                 }
             });
         }

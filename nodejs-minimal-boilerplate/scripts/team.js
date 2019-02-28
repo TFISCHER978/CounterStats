@@ -79,18 +79,27 @@ $(document).ready(function() {
         var tbl = document.createElement('table');
         tbl.setAttribute("id", "personDataTable");
         document.getElementsByTagName('main')[0].appendChild(tbl);
-        var row = "<tr id='tableHeader'><th>Status</th><th>Pseudo</th><th>Email</th></tr>";
-        $("#personDataTable").append(row);
+
+        var thead = document.createElement('thead');
+        thead.setAttribute("id", "dataHead")
+        document.getElementById('personDataTable').appendChild(thead)
+
+        var tbody = document.createElement('tbody');
+        tbody.setAttribute("id", "dataBody")
+        document.getElementById('personDataTable').appendChild(tbody)
+
+        var row = "<tr id='tableHeader'><th scope='col'>Status</th><th scope='col'>Pseudo</th><th scope='col'>Email</th></tr>";
+        $("#dataHead").append(row);
 
         for (var i = 0; i < data.length; i++) {
-            drawRow(data[i]);
+            drawRow(data[i], i);
         }
         
         //ajout invitation team
         if (data.length < 6) {
             for (var i = 0; i < (6-data.length); i++) {
                 var inputRow = "<tr><td>Void</td><td>Void</td><td>Void</td></tr>"
-                $("#personDataTable").append(inputRow);
+                $("#dataBody").append(inputRow);
             }
 
             for (var i = 0; i < data.length; i++) {
@@ -157,7 +166,7 @@ $(document).ready(function() {
         }
     }
     
-    function drawRow(rowData) {
+    function drawRow(rowData, index) {
         var row;
 
         var pseudo = rowData.pseudo;
@@ -170,7 +179,7 @@ $(document).ready(function() {
        
         if (rowData.isManager) {
             row = "<tr id='manager'><td>Manager " + you + "</td><td>" + pseudo + "</td><td>" + email + "</td></tr>";
-            $("#tableHeader").after(row);
+            $(row).insertBefore('table > tbody > tr:first');
         } else {
             row = "<tr class='player'><td>Player " + you + "</td><td>" + pseudo + "</td><td>" + email + "</td></tr>";
             $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it

@@ -517,7 +517,7 @@ app.get('/logout', function(req, res, next) {
 });
 
 app.get('*', function(req, res){
-  res.send('what???', 404);
+  res.send('Oh gosh we\'ve been eradicated.... Come l8er please !', 404);
 });
 
 
