@@ -7,10 +7,10 @@ describe("Test the root path", () => {
   //   expect(response.statusCode).toBe(200);
   //   //expect(response.header["content-type"]).toBe("text/html; charset=utf-8");
   // });
-  test("It should serve home.css file", async () => {
-    const response = await request(app).get("/static/home.css");
-    expect(response.statusCode).toBe(200);
-  });
+  //test("It should serve home.css file", async () => {
+  //  const response = await request(app).get("/static/home.css");
+  //  expect(response.statusCode).toBe(200);
+  //});
   test("It should serve login.css file", async () => {
     const response = await request(app).get("/static/login.css");
     expect(response.statusCode).toBe(200);
