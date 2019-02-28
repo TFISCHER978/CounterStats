@@ -9,12 +9,12 @@ deploy:
   provider: heroku
   app: counterstat
   api_key:
-    secure: Z+bz7bvkEazA6Aq6NFwBam0DDsSzXEeEsPWgbyagVJ2Ot1UvdchdXOp8ja/eP39DJcQ8sXYYCnDkryWrNUO3cuGqoiuYEpu3c8Yc41Hhx51JyM/l0Pe+tuoOukNWHwSQPaiM8BY34jJyKrNZ0EEXbKhtwVkRde+Nl+/ESrR9XZnvAyPv3TiBDg2xnVbt2jWC08K4fLmmWMen73e5Ctr6uf2XK8tRxodKfPo22tR4t4j1X510TDANWSZSQJV1bQI2mVXOZ7qKxLeTyPjD1aBPv7lEoxYivQ/xF3DIDkZ9GR2/VvNXAZ8R2ZNsWLMkLjvthjYxwWSB1zL9L+BbwNhJA53O0rpmDtfArLBRadevbsqAUjod2Q3xlIQsOaEUotCCRXHrJTTToTEILlnJq+BsOd7Yxw7wHm61v0UUuysDfmyjU0l9NWIxGD/Py2gH2PyC5fqnohp3p9KtAvZSuLyIIjUsftHzgupM2njBf3KCyUtPtiuvv207pcVl+sl47v29ew2zdJGVsWV3ek8q8J8veA22rt2jXMWlZikjz+H6agSNUYN5zULF2PYMseaooZ5UBVRfa/8jOCj4Xy6ooFbsfl+X4JHxsiqEGf/rRJAFgdlORfDQBw3kXA7OF7Fcqe6DBfmXGbsEi1CE70OegHhKByVLK2lnQ/55pA0VkOL2VU8=
+    secure: m3ZHNIOfdEIxeIEuFVRqKE5BS0wk5qYmyj7KxwA9qDiokBZPD5fZ2s41A5lBMGAs4PF70uFzkXbhUO3Nmp0xs36Kw59MlIZPczGx2ZWxsu5wgNfugp3NHgrLvRrkXuZzX5psn/PCFEZ5Sxc3U549Df2cUsLU5WlkMQKyjbSymBF1G0xBqlyIhtjKc+TdOPh0R3+M6zf4k2ab8RgFzMx4qNgXE2XqdWFws+AgtBj6FqlcpAM73jDiR2MKNrdobAjtYaJRkxqVTNCliIagyv3A0h4LdN+/gsGsWbIhqa7HLCfShHdI/kKulcqaBwEKAo7eshH3IYxxOz50eejVHM6bnkF3pX8fitBO8M9kBVDJzyuMsl0G+bW73TibrOfw9k2oWKZfOUodUAbSDwErIit+4s2wglCsA591iTZiNsisdQBGH86DZ7mOtGyakg6W8zmVB3OhHLLL6gEd7JOO4sw7uIl+M0SjRVlPNB19K4GrLknCqH+5o5k4o/BUu/+CMnuK5fAehrGIGOOki3yYwU0xaeVtQF/ViLhJIlyATuS/TKNSbuMCVY9TlMKZHmSoJ9nsxzNDza/OxCaIqRBgyq5M1Wp2OW64H0BRYXn5qX1qC2klGm3/9+57yLyEDUwqq6R2A0HqoA5VjsJQIzsqLGCDD9hT5sr4MtBiKyAansx7a58=
 after_success:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh success $WEBHOOK_URL
+- wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+- chmod +x send.sh
+- "./send.sh success $WEBHOOK_URL"
 after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh failure $WEBHOOK_URL
+- wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+- chmod +x send.sh
+- "./send.sh failure $WEBHOOK_URL"

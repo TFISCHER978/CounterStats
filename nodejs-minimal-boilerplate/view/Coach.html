@@ -30,7 +30,7 @@
 
 <body class="bg-secondary">
 
-    <script src="../scripts/team.js"></script>
+    <script src="../scripts/coach.js"></script>
     
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -48,47 +48,46 @@
 			<div id="menu">
 				<ul>
                     <li><a href="/myaccount">My Account</a></li>
-					<li><a href="#">Stats</a></li>
+                    <li><a href="/team">Team</a></li>
+					<!-- <li><a href="#">Stats</a></li> -->
 					<li><a href="/logout">Logout</a><li>
 				</ul>
 			</div>
 	
         </nav>
-			
+    </header>
+    
+    <main role="main" class="container">
 		<form>           
 
             <div class="form-group">
-				<h1 id="cocolasticot" style="text-align: center; color: white;">Create Training </h1>
+				<h1 id="cocolasticot" style="text-align: center; color: white;">Create Training</h1>
                 <br>
-				<label for="Date" style ="color : white">Date</label>
-                <input type="date" class="form-control" id="training" placeholder="jj/mm/année">
-				<label for="heure" style="color : white">Heure</label>
-				<input type="time" class="form-control" id="training" placeholder ="hh:mm">
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Goal</div>
+                    </div>
+                    <input type="text" class="form-control" id="goal" placeholder="...">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Date</div>
+                    </div>
+                    <input type="date" class="form-control" id="date" placeholder="jj/mm/année">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Time</div>
+                    </div>
+                    <input type="time" class="form-control" id="time" placeholder ="hh:mm">
+                </div>
+				
 			</div>
 			<button id="submit" type="button" class="btn btn-success">Create Training</button>
 					
         </form>
-        <!-- if no team -->
-		
-		
-        <p id="noTeam">Looks like you don’t have a team yet.</p>
+    </main>
 
-        <!-- if team -->
-        <p id="teamId"></p>
-
-        <!-- <table id="personDataTable">
-                <tr>
-                    <th>Pseudo</th>
-                    <th>Email</th>
-                </tr>
-                
-            </table> -->
-
-    <!-- </header>
-<iframe src="https://calendar.google.com/calendar/embed?title=My%20calendar&amp;showPrint=0&amp;showCalendars=0&amp;height=600&amp;wkst=2&amp;bgcolor=%23c0c0c0&amp;src=8dicncrenk4rk6uqql3em1e2gg%40group.calendar.google.com&amp;color=%232F6309&amp;ctz=Europe%2FParis" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>	            
-    </main> -->
-    
-<!-- <video autoplay muted loop id="Video"><source src="../static/CSGO%20Wallpaper.mp4"></video> -->
 
 </body>
 

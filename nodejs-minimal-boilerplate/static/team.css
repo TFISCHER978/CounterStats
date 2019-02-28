@@ -1,3 +1,9 @@
+@font-face{
+  font-family: csFont;
+  src: url(cs_regular.ttf);
+}
+
+
 #menu ul {
   margin:0;
   padding:0;
@@ -29,25 +35,40 @@
 /* table for members */
 table {
   border: 1px solid #666;   
-    width: 30%;
-    border-radius: 25%;
+  width: 50%;
+  border-radius: 25%;
+  margin-left: auto;
+  margin-right: auto;
 }
 th {
   background: #f8f8f8; 
   font-weight: bold;    
-    padding: 2px;
+  padding: 2px;
 }
 
 #manager {
-  background:#FFFF66;
+  background:rgb(194, 102, 255);
 }
 
 .player {
   background:#C0C0C0;
 }
 
-/* When no team => visible */
-.noTeam{
-    visibility: hidden;
-    
-  }
+#joinTeam {
+  margin-top: 3%;
+  width: 50%;
+}
+
+#addMember {
+  margin-top: 3%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#buttonPlanTraining {
+  margin-top: 3%;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -11,27 +11,40 @@ $(document).ready(function() {
             },
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
-            .then(response => {
-                if (response.status === 200) window.location.href = response.url;
+        .then(response => {
+            if (response.status === 200) window.location.href = response.url;
 
-                if (response.status === 402) {
-                    $("#error").css("visibility","visible");
-                    $("#pError").text("Name already used.");
-                }     
-            })
-        });
+            if (response.status === 402) {
+                $("#error").css("visibility","visible");
+                $("#pError").text("Name already used.");
+            }     
+        })
+    });  
 
-        $(document).bind('keypress', function(e) {
-            if(e.keyCode==13){
-                 $('#submit').trigger('click');
-             }
-        });
+    $(document).bind('keypress', function(e) {
+        if(e.keyCode==13){
+             $('#submit').trigger('click');
+         }
+    });
 
     $('#Name, #Tag').on('keyup', function () {
-        if ( !($('#Tag').val() === "") && !($('#Name').val() === "") ) {           
-                $('#submit').prop('disabled', false);
+        if ( !($('#Tag').val() === "") && !($('#Name').val() === "") && $("#Tag").val().length >3 && $("#Tag").val().length <11) {           
+            $('#submit').prop('disabled', false);
         } else {
             $('#submit').prop('disabled', true);
+        }
+    });
+
+    $('#Tag').on('keyup', function () {
+        console.log($("#Tag").val().length);
+        if ( $("#Tag").val().length >3 && $("#Tag").val().length <11) {
+            if ($('#Tag').hasClass('is-invalid')) {
+                $('#Tag').toggleClass('is-invalid');
+            }
+        } else {
+            if (!$('#Tag').hasClass('is-invalid')) {
+                $('#Tag').toggleClass('is-invalid');
+            }
         }
     });
 

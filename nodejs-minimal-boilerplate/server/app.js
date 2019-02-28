@@ -11,6 +11,10 @@ const validator = require("email-validator");
 const session = require('express-session');
 const morgan = require('morgan');
 
+const randomstring = require("randomstring");
+const nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport'); 
+
 const app = express();
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -225,13 +229,19 @@ app.get("/teamInfo", function(req,res) {
         var teamJson = [];
 
         for (var i = 0; i < p_res.rowCount; i++) {
+          if (p_res.rows[i].email === req.session.userEmail) {
+            var isyou = true;
+          } else {
+            var isyou = false;
+          }
+
           teamJson.push({              
             pseudo: p_res.rows[i].pseudo,
             email: p_res.rows[i].email,
-            isManager: p_res.rows[i].manager
+            isManager: p_res.rows[i].manager,
+            you: isyou
           });      
         }
-        teamJson.push({length: p_res.rowCount});
         res.end(JSON.stringify(teamJson, null, 3));
       }
     });
@@ -266,7 +276,7 @@ app.post("/createteam",function(req, res) {
   //Check mail not in base
 
   const query = {
-    text: 'SELECT * FROM public.team WHERE T_name=$1',
+    text: 'SELECT * FROM "public"."team" WHERE "T_name"=$1',
     values: [req.body.name],
   };
   client.query(query, (err, p_res) => {
@@ -274,9 +284,10 @@ app.post("/createteam",function(req, res) {
     else {
       if (p_res.rowCount == 0) {
         // console.log("Team not in base");
+        const teamId = uuidv1();
         const query = {
-          text: 'INSERT INTO public.team VALUES ($1, $2, $3)',
-          values: [uuidv1(), req.body.name, req.body.tag]
+          text: 'INSERT INTO "public"."team" VALUES ($1, $2, $3)',
+          values: [teamId, req.body.name, req.body.tag]
         };
         client.query(query, (err, p_res) => {
           if(err) console.log("Error", err);
@@ -284,14 +295,15 @@ app.post("/createteam",function(req, res) {
 
             // Recup in base data => session
             const query2 = {
-              text: 'UPDATE "public"."user" SET "team_id" = (SELECT "T_id" from team Where "T_name" = $1) WHERE "id" = $2',
+              text: 'UPDATE "public"."user" SET "team_id" = (SELECT "T_id" from "public"."team" Where "T_name"=$1), "manager" = true WHERE "id" = $2',
               values: [req.body.name, req.session.userId]
             };
             client.query(query2, (err, p_res) => {
               if(err) console.log("Error", err);
               else {
-                  res.status(200);
-                  res.redirect("/team");
+                req.session.teamId=teamId;
+                res.status(200);
+                res.redirect("/team");
               }
             });
           }
@@ -306,6 +318,156 @@ app.post("/createteam",function(req, res) {
   });
 });
 
+
+app.post("/joinTeam", function(req,res) {
+
+  //join team
+  // => check code in base and note used
+  // => do somethings
+  const { Client } = require('pg')
+  const config = {
+    connectionString: databaseUrl
+  };
+  const client = new Client(config);
+  const saltRounds = 10;
+  
+  client.connect()
+
+  const query = {
+    text: 'SELECT * FROM public.invitcode WHERE code=$1',
+    values: [req.body.code],
+  };
+  client.query(query, (err, p_res) => {
+    if(err) console.log("Error", err);
+    else {
+      if (p_res.rowCount == 1 && p_res.rows[0].valid === true) {
+
+        // update team member
+        const query = {
+          text: 'UPDATE "public"."user" SET "team_id" = (SELECT "team_id" FROM "public"."invitcode" where code = $1) WHERE "id" = $2',
+          values: [req.body.code, req.session.userId]
+        };
+        client.query(query, (err, p_res) => {
+          if(err) console.log("Error", err);
+          else {
+            
+            // invalidate invite code
+            const query = {
+              text: 'UPDATE "public"."invitcode" SET "valid" = false WHERE "code" LIKE $1',
+              values: [req.body.code]
+            };
+            client.query(query, (err, p_res) => {
+              if(err) console.log("Error", err);
+              else {}
+            });
+
+            const query2 = {
+              text: 'SELECT "team_id" FROM "public"."user" WHERE "id"=$1',
+              values: [req.session.userId]
+            };
+            client.query(query2, (err, p_res) => {
+              if(err) console.log("Error", err);
+              else {
+                if (p_res.rowCount == 1) {
+                  req.session.teamId=p_res.rows[0].team_id;
+                  req.session.save( function(err) {
+                    // req.session.reload( function (err) {
+                    // });
+                  });
+                }
+                
+              }
+            });
+
+
+            res.status(200);
+            res.redirect("/team")
+          }
+        });
+      } else {
+        //no code
+        res.status(401);
+        res.send();
+      }
+    }
+  });
+});
+
+
+app.post("/addMember", function(req,res) {
+  const { Client } = require('pg')
+  const config = {
+    connectionString: databaseUrl
+  };
+  const client = new Client(config);
+  const saltRounds = 10;
+  
+  client.connect()
+
+  const query = {
+    text: 'SELECT * FROM public.user WHERE email=$1',
+    values: [req.body.email],
+  };
+  client.query(query, (err, p_res) => {
+    if(err) console.log("Error", err);
+    else {
+      if (p_res.rowCount == 1) {
+
+        var invitCode = randomstring.generate(20);
+
+        const query = {
+          text: 'INSERT INTO "public"."invitcode"  VALUES ($1, DEFAULT, $2)',
+          values: [invitCode,req.session.teamId]
+        };
+        client.query(query, (err, p_res) => {
+          if(err) console.log("Error", err);
+          else {
+            
+            var transporter = nodemailer.createTransport(smtpTransport({
+              service: 'gmail',
+              auth: {
+                user: process.env.MAIL,
+                pass: process.env.PASSWORD
+              },
+              tls: {
+                  rejectUnauthorized: false
+              }
+            }));
+            
+            var mailOptions = {
+              from: process.env.MAIL,
+              to: req.body.email,
+              subject: 'Hey ! Join my team',
+              text: 'Just use this code in your team page : \n' + invitCode + '\nBtw, here\'s the link :\n https://counterstat.herokuapp.com/'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('Email sent: ' + info.response);
+              }
+            }); 
+
+            res.status(200);
+            res.send();
+          }
+        });
+      } else {
+        //mail not in base
+        res.status(401);
+        res.send();
+      }
+    }
+  });
+});
+
+
+app.get("/newtraining", function(req, res) {
+  const content = fs.readFileSync(`${__dirname}/../view/Coach.html`);
+  res.set("Content-Type", "text/html");
+  res.send(content.toString());
+});
 
 // Logout
 app.get('/logout', function(req, res, next) {

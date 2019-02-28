@@ -1,4 +1,5 @@
 body {
+<<<<<<< HEAD
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: csFont, italic;
@@ -6,3 +7,55 @@ body {
  width: 100%;
  height: auto;
 }
+=======
+  background: url(ressource/team.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+nav{
+    background-color: rgb(29, 29, 29, .5);
+}
+
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+form{
+    width: 100%;
+    display: block;
+    margin-top: 5%;
+}
+
+.form-group input{
+    padding: 0px;
+    border: 0px;
+}
+
+::placeholder{
+    padding-left: 1%;
+    font-family: inherit;
+}
+
+.csFont{
+    font-family: csFont, italic;
+}
+
+label{
+    display: block;
+    text-align: center;
+    margin-bottom: 2%;
+    font-size: 450%;
+    color: white;  
+    background-color: rgba(29,29,29,.5);
+}
+
+#error{
+    visibility: hidden;
+    
+  }
+>>>>>>> 5bd4abc10d906b2da2e7d41abbf1ee537c11ca18
