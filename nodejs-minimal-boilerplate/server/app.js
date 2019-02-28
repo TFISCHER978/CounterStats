@@ -28,6 +28,14 @@ app.use(bodyParser.json());
 // set morgan to log info about our requests for development use.
 app.use(morgan('dev'));
 
+const { Client } = require('pg')
+const config = {
+  connectionString: databaseUrl
+};
+const client = new Client(config);
+
+client.connect()
+
 app.use(require('express-session')({
   name: 'session', // The name of the cookie
   secret: process.env.SECRET, // The secret is required, and is used for signing cookies
@@ -51,13 +59,7 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", function(req, res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  
-  client.connect()
+
   const query = {
     text: 'SELECT * FROM public.user WHERE email=$1',
     values: [req.body.email],
@@ -109,14 +111,7 @@ app.get("/createaccount", function(req, res) {
 });
 
 app.post("/createaccount",function(req, res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
   const saltRounds = 10;
-  
-  client.connect()
 
   //Check mail not in base
 
@@ -130,7 +125,7 @@ app.post("/createaccount",function(req, res) {
       if (p_res.rowCount == 0) {
         // console.log("Email not in base");
         const query = {
-          text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null, null)',
+          text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null)',
           values: [req.body.email, uuidv1(), bcrypt.hashSync(req.body.password, saltRounds), req.body.pseudo]
         };
         client.query(query, (err, p_res) => {
@@ -210,13 +205,7 @@ app.get("/session", function(req,res) {
 // get team member based on current session user
 app.get("/teamInfo", function(req,res) {
   if(req.session && req.session.teamId != null){
-    const { Client } = require('pg')
-    const config = {
-      connectionString: databaseUrl
-    };
-    const client = new Client(config);
-    
-    client.connect()
+
     const query = {
       text: 'SELECT pseudo,email,manager FROM "user" WHERE team_id=$1',
       values: [req.session.teamId],
@@ -229,10 +218,17 @@ app.get("/teamInfo", function(req,res) {
         var teamJson = [];
 
         for (var i = 0; i < p_res.rowCount; i++) {
+          if (p_res.rows[i].email === req.session.userEmail) {
+            var isyou = true;
+          } else {
+            var isyou = false;
+          }
+
           teamJson.push({              
             pseudo: p_res.rows[i].pseudo,
             email: p_res.rows[i].email,
-            isManager: p_res.rows[i].manager
+            isManager: p_res.rows[i].manager,
+            you: isyou
           });      
         }
         res.end(JSON.stringify(teamJson, null, 3));
@@ -257,14 +253,7 @@ app.get("/createteam", function(req, res) {
 });
 
 app.post("/createteam",function(req, res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
   const saltRounds = 10;
-  
-  client.connect()
 
   //Check mail not in base
 
@@ -317,14 +306,6 @@ app.post("/joinTeam", function(req,res) {
   //join team
   // => check code in base and note used
   // => do somethings
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  const saltRounds = 10;
-  
-  client.connect()
 
   const query = {
     text: 'SELECT * FROM public.invitcode WHERE code=$1',
@@ -388,14 +369,6 @@ app.post("/joinTeam", function(req,res) {
 
 
 app.post("/addMember", function(req,res) {
-  const { Client } = require('pg')
-  const config = {
-    connectionString: databaseUrl
-  };
-  const client = new Client(config);
-  const saltRounds = 10;
-  
-  client.connect()
 
   const query = {
     text: 'SELECT * FROM public.user WHERE email=$1',
@@ -456,6 +429,79 @@ app.post("/addMember", function(req,res) {
 });
 
 
+app.get("/newtraining", function(req, res) {
+  if(req.session && req.session.teamId != null && req.session.manager){
+    const content = fs.readFileSync(`${__dirname}/../view/Coach.html`);
+    res.set("Content-Type", "text/html");
+    res.send(content.toString());
+  } else {
+    res.redirect("/login");
+  }
+});
+
+
+app.post('/newtraining', function(req,res) {
+
+  if (req.session.manager) {
+
+    var uuid = uuidv1();
+    var date = req.body.date;
+    var time = req.body.time;
+    var fulldate = date + " " + time;
+
+    const query = {
+      text: 'INSERT INTO "public"."training" ("tr_id", "tr_date", "team_id", "tr_goal") VALUES ($1, $2, $3, $4)',
+      values: [uuid,fulldate,req.session.teamId,req.body.goal]
+    };
+    client.query(query, (err, p_res) => {
+      if(err) console.log("Error", err);
+      else {
+        res.status(200);
+        res.redirect("/myaccount");
+      }
+    });
+
+  } else {
+    //mail not in base
+    res.status(401);
+    res.send();
+  }
+});
+
+// get training based on user team_id
+app.get("/traininginfo", function(req,res) {
+  if(req.session && req.session.teamId != null){
+
+    const query = {
+      text: 'SELECT tr_date,tr_goal FROM "training" WHERE team_id=$1',
+      values: [req.session.teamId],
+    };
+    client.query(query, (err, p_res) => {
+      if(err) console.log("Error", err);
+      else {
+        res.setHeader('Content-Type', 'application/json');
+
+        var teamJson = [];
+
+        //JSONIFIER TOUT LES TRAINING
+
+        for (var i = 0; i < p_res.rowCount; i++) {
+          teamJson.push({
+            goal: p_res.rows[i].tr_goal,
+            time: p_res.rows[i].tr_date
+          });      
+        }
+        res.status(200)
+        res.end(JSON.stringify(teamJson, null, 3));
+      }
+    });
+  }
+  else{
+    res.status(401)
+    res.send('noTraining');
+  }
+});
+
 // Logout
 app.get('/logout', function(req, res, next) {
   if (req.session) {
@@ -471,7 +517,7 @@ app.get('/logout', function(req, res, next) {
 });
 
 app.get('*', function(req, res){
-  res.send('what???', 404);
+  res.send('Oh gosh we\'ve been eradicated.... Come l8er please !', 404);
 });
 
 

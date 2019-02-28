@@ -30,7 +30,7 @@
 
 <body class="bg-secondary">
 
-    <script src="../scripts/team.js"></script>
+    <script src="../scripts/training.js"></script>
     
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -48,7 +48,8 @@
 			<div id="menu">
 				<ul>
                     <li><a href="/myaccount">My Account</a></li>
-					<li><a href="#">Stats</a></li>
+                    <li><a href="/team">Team</a></li>
+					<!-- <li><a href="#">Stats</a></li> -->
 					<li><a href="/logout">Logout</a><li>
 				</ul>
 			</div>
@@ -60,12 +61,27 @@
 		<form>           
 
             <div class="form-group">
-				<h1 id="cocolasticot" style="text-align: center; color: white;">Create Training </h1>
+				<h1 id="cocolasticot" style="text-align: center; color: white;">Create Training</h1>
                 <br>
-				<label for="Date" style ="color : white">Date</label>
-                <input type="date" class="form-control" id="training" placeholder="jj/mm/année">
-				<label for="heure" style="color : white">Heure</label>
-				<input type="time" class="form-control" id="training" placeholder ="hh:mm">
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Goal</div>
+                    </div>
+                    <input type="text" class="form-control" id="goal" placeholder="...">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Date</div>
+                    </div>
+                    <input type="date" class="form-control" id="date" placeholder="jj/mm/année">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Time</div>
+                    </div>
+                    <input type="time" class="form-control" id="time" placeholder ="hh:mm">
+                </div>
+				
 			</div>
 			<button id="submit" type="button" class="btn btn-success">Create Training</button>
 					

@@ -1,27 +1,96 @@
-#menu ul {
- margin:0;
- padding:0;
- list-style-type:none;
- text-align:center;
- }
-#menu li {
- float:left;
- margin:auto;
- padding:0;
-  /* background-color:black; */
- }
-#menu li a {
- display:block;
- width:100px;
- color:white;
- text-decoration:none;
- padding:5px;
+body{
+    background: url(ressource/myaccount.jpg)no-repeat center center fixed;
+    background-size: cover;
+}
 
- }
-#menu li a:hover {
- color:#FFD700;
- }
- 
- .navbar-brand { 
-	font-style:200
- }
+table{
+    color: white;
+}
+
+p{
+    color: white;
+}
+
+@font-face{
+    font-family: csFont;
+    src: url(cs_regular.ttf);
+}
+
+nav{
+    background-color: rgb(29, 29, 29, .5);
+}
+
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.logoCounterStats{
+    display: block;
+    margin: 0 auto;
+}
+
+#logoCounterStats img{
+    text-align: center;
+}
+
+h1{
+    margin-top: 5%;
+}
+
+.blog{
+    color: darkgrey;
+    background-color: rgb(29, 29, 29, .8);
+    padding: 5%;
+    margin-left: 1%;
+}
+
+.blog img{
+    height: 50%;
+    width: 50%;
+}
+
+
+.blog p{
+    margin: 10px;
+	font-size: 20px;
+}
+
+.blog h2{
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.blog footer{
+    text-align: right;
+    margin-top: 10%;
+}
+
+th{
+    background-color: rgba(211,211,211,.5);
+}
+
+td{
+    background-color: rgba(205,92,92,.5);
+}
+
+h1{
+    text-align: center;
+}

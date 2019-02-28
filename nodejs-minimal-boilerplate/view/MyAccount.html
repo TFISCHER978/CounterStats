@@ -32,36 +32,17 @@
 
     <script src="../scripts/myAccount.js"></script>
     
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-
-            <a class="navbar-brand" href="/">CounterStats</a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="justify-content-center collapse navbar-collapse text-center" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                </ul>
-            </div>
-			<div id="menu">
-				<ul>
-					<li><a href="#">Stats</a></li>
-					<li><a href="/team">Team</a></li>
-					<li><a href="/logout">Logout</a><li>
-				</ul>
-			</div>
-	
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <a class="logoCounterStats" href="/"><img src="../static/ressource/logoconterstats.png"></a>
+            <a href="/team" style="margin-right: 1%"><button class="btn btn-outline-success">Team</button></a>
+            <a href ="/logout"><button class="btn btn-outline-danger">Logout</button></a>
         </nav>
-
-
+	</header>
+    
+	<main role="main" class="container">
         <p id="userName"></p>
-        <p id="userEmail"></p>
-        <!-- <p id="manager"></p> -->
-        <p id="userId"></p>
-        <!-- <p id="teamId"></p> -->
-
+	</main>
     <!-- </header>
 <iframe src="https://calendar.google.com/calendar/embed?title=My%20calendar&amp;showPrint=0&amp;showCalendars=0&amp;height=600&amp;wkst=2&amp;bgcolor=%23c0c0c0&amp;src=8dicncrenk4rk6uqql3em1e2gg%40group.calendar.google.com&amp;color=%232F6309&amp;ctz=Europe%2FParis" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>	            
     </main> -->

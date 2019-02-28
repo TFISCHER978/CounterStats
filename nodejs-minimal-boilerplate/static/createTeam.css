@@ -1,20 +1,11 @@
-@font-face{
-    font-family: csFont;
-    src: url(cs_regular.ttf);
-}
-
-* {
-    box-sizing: initial;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  background: url(ressource/team.jpg) no-repeat center center fixed;
-  background-size: cover;
+ margin-bottom: 60px;
+ font-family: csFont, italic;
+ background: url(ressource/team.jpg) no-repeat fixed center;
+ width: 100%;
+ height: auto;
+ background: url(ressource/team.jpg) no-repeat center center fixed;
+ background-size: cover;
 }
 
 nav{
@@ -63,3 +54,4 @@ label{
     visibility: hidden;
     
   }
+>>>>>>> 5bd4abc10d906b2da2e7d41abbf1ee537c11ca18

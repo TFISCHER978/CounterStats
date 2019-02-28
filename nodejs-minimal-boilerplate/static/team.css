@@ -1,3 +1,62 @@
+@font-face{
+  font-family: csFont;
+  src: url(cs_regular.ttf);
+}
+
+nav{
+    background-color: rgb(29, 29, 29, .5);
+}
+
+.logoCounterStats{
+    display: block;
+    margin: 0 auto;
+}
+
+#logoCounterStats img{
+    text-align: center;
+}
+
+nav img{
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+.csFont{
+    font-family: csFont, italic;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+form{
+    text-align: center;
+}
+
+body{
+    background: url(ressource/team_bg.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+#pInfo{
+    color: white;
+    background-color: rgba(29,29,29,.5);
+    text-align: center;
+    margin-top: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+#buttonCTeam{
+    margin-top: 2%;
+    font-size: 35px;
+    text-align: center;
+}
+
 #menu ul {
   margin:0;
   padding:0;
@@ -28,29 +87,46 @@
 
 /* table for members */
 table {
+  margin-top: 5%; 
   border: 1px solid #666;   
   width: 50%;
-  border-radius: 25%;
+  color: white;
   margin-left: auto;
   margin-right: auto;
+  background-color: rgba(0,0,0,0);
 }
 th {
-  background: #f8f8f8; 
+  background: rgba(248, 248, 248, .8); 
   font-weight: bold;    
   padding: 2px;
+  color: black;
 }
 
 #manager {
-  background:#FFFF66;
+  background-color: rgba(211,211,211,.8);
+  color: black;
 }
 
 .player {
-  background:#C0C0C0;
+  background-color: rgba(205,92,92,.8);
+  color: black;
 }
 
 #joinTeam {
   margin-top: 3%;
   width: 50%;
+}
+
+#addMember {
+  margin-top: 3%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#buttonPlanTraining {
+  margin-top: 3%;
+  width: 20%;
   margin-left: auto;
   margin-right: auto;
 }

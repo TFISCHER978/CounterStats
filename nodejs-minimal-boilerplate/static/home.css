@@ -9,14 +9,14 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
     margin-bottom: 60px;
     font-family: csFont, italic;
     background: url(ressource/font_test.jpg) no-repeat center center fixed;
-    background-size: cover;
-
-  	
+    background-size: cover;	
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -25,9 +25,6 @@ body {
   line-height: 60px;
   background-color: #f5f5f5;
 }
-/* Custom page CSS
-  -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
 
 nav{
     background-color: rgb(29, 29, 29, .5);
@@ -64,10 +61,6 @@ code {
     text-align: center;
 }
 
-#login{
-    float: right;
-}
-
 h1{
     margin-top: 5%;
 }
@@ -82,6 +75,9 @@ h1{
 .blog img{
     height: 50%;
     width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -98,12 +94,4 @@ h1{
 .blog footer{
     text-align: right;
     margin-top: 10%;
-}
-
-.Video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
 }
