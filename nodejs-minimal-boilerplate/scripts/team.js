@@ -125,7 +125,7 @@ $(document).ready(function() {
                     var button = document.createElement('button');
                     button.setAttribute('id', 'submitInvit');
                     button.setAttribute('type', 'button');
-                    button.setAttribute('class', 'btn btn-primary mb-2');
+                    button.setAttribute('class', 'btn btn-primary mb-2 csFont');
                     button.addEventListener('click', function() {
                         addMember();
                     });

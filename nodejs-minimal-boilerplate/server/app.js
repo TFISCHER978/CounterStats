@@ -481,19 +481,22 @@ app.post('/newtraining', function(req,res) {
   client.connect()
 
   const query = {
-    text: 'SELECT * FROM public.user WHERE email=$1',
-    values: [req.body.email],
+    text: 'SELECT manager FROM public.user WHERE email=$1',
+    values: [req.session.email],
   };
   client.query(query, (err, p_res) => {
     if(err) console.log("Error", err);
     else {
-      if (p_res.rowCount == 1) {
+      if (p_res.rowCount == 1 && p_res.rows[0].manager) {
 
-        var invitCode = randomstring.generate(20);
+        var uuid = uuidv1();
+        var date = req.body.date;
+        var time = req.body.time;
+        var fulldate = 0;
 
         const query = {
-          text: 'INSERT INTO "public"."invitcode"  VALUES ($1, DEFAULT, $2)',
-          values: [invitCode,req.session.teamId]
+          text: 'INSERT INTO "public"."training" ("tr_id", "tr_date", "team_id", "tr_goal") VALUES ($1, $2, $3, $4)',
+          values: [uuid,fulldate,req.session.teamId,req.body.goal]
         };
         client.query(query, (err, p_res) => {
           if(err) console.log("Error", err);
