@@ -90,22 +90,26 @@ table {
   margin-top: 5%; 
   border: 1px solid #666;   
   width: 50%;
-  border-radius: 25%;
+  color: white;
   margin-left: auto;
   margin-right: auto;
+  background-color: black;
 }
 th {
   background: #f8f8f8; 
   font-weight: bold;    
   padding: 2px;
+  color: black;
 }
 
 #manager {
   background-color: gold;
+  color: black;
 }
 
 .player {
   background:#C0C0C0;
+  color: black;
 }
 
 #joinTeam {
