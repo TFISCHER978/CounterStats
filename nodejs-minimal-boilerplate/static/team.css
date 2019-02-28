@@ -7,6 +7,15 @@ nav{
     background-color: rgb(29, 29, 29, .5);
 }
 
+.logoCounterStats{
+    display: block;
+    margin: 0 auto;
+}
+
+#logoCounterStats img{
+    text-align: center;
+}
+
 nav img{
     width: 20%;
     display: block;
@@ -78,6 +87,7 @@ body{
 
 /* table for members */
 table {
+  margin-top: 5%; 
   border: 1px solid #666;   
   width: 50%;
   border-radius: 25%;
@@ -91,7 +101,7 @@ th {
 }
 
 #manager {
-  background:rgb(194, 102, 255);
+  background-color: gold;
 }
 
 .player {
