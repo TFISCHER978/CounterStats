@@ -130,7 +130,7 @@ app.post("/createaccount",function(req, res) {
       if (p_res.rowCount == 0) {
         // console.log("Email not in base");
         const query = {
-          text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null, null)',
+          text: 'INSERT INTO public.user VALUES ($1, $2, $3, $4, DEFAULT, null)',
           values: [req.body.email, uuidv1(), bcrypt.hashSync(req.body.password, saltRounds), req.body.pseudo]
         };
         client.query(query, (err, p_res) => {
@@ -467,6 +467,49 @@ app.get("/newtraining", function(req, res) {
   const content = fs.readFileSync(`${__dirname}/../view/Coach.html`);
   res.set("Content-Type", "text/html");
   res.send(content.toString());
+});
+
+
+app.post('/newtraining', function(req,res) {
+  const { Client } = require('pg')
+  const config = {
+    connectionString: databaseUrl
+  };
+  const client = new Client(config);
+  const saltRounds = 10;
+  
+  client.connect()
+
+  const query = {
+    text: 'SELECT * FROM public.user WHERE email=$1',
+    values: [req.body.email],
+  };
+  client.query(query, (err, p_res) => {
+    if(err) console.log("Error", err);
+    else {
+      if (p_res.rowCount == 1) {
+
+        var invitCode = randomstring.generate(20);
+
+        const query = {
+          text: 'INSERT INTO "public"."invitcode"  VALUES ($1, DEFAULT, $2)',
+          values: [invitCode,req.session.teamId]
+        };
+        client.query(query, (err, p_res) => {
+          if(err) console.log("Error", err);
+          else {
+            res.status(200);
+            res.send();
+          }
+        });
+
+      } else {
+        //mail not in base
+        res.status(401);
+        res.send();
+      }
+    }
+  });
 });
 
 // Logout
